@@ -1,0 +1,4 @@
+# Depoda tutarlı satır sonu (sunucu Linux olduğu için LF)
+* text=auto eol=lf
+*.png binary
+*.jpg binary

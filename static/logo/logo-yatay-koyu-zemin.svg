@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 120" width="560" height="120">
+<rect x="-40" y="-40" width="640" height="200" fill="#0F1216"></rect>
+
+  <g>
+    <rect x="0" y="0" width="120" height="120" rx="26" fill="#C42B2B"></rect>
+    <polygon points="60.00,42.00 85.98,57.00 85.98,87.00 60.00,102.00 34.02,87.00 34.02,57.00" fill="#FFFFFF"></polygon>
+    <circle cx="60" cy="72" r="15" fill="#C42B2B"></circle>
+    <circle cx="46" cy="24" r="7" fill="#FFFFFF"></circle>
+    <circle cx="74" cy="24" r="7" fill="#FFFFFF"></circle>
+  </g>
+
+  <text x="150" y="58" font-family="&#39;Archivo Black&#39;,&#39;Arial Black&#39;,sans-serif" font-weight="900" font-size="44" letter-spacing="1" fill="#FFFFFF">ÖZDEMİR</text>
+  <text x="151" y="98" font-family="&#39;Archivo&#39;,&#39;Arial&#39;,sans-serif" font-weight="700" font-size="27" letter-spacing="6.5" fill="#FFFFFF" opacity="0.75">TEKNİK SERVİS</text>
+</svg>
