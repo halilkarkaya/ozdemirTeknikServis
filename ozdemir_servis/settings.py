@@ -93,4 +93,13 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# Statik dosya adlarına içerik hash'i ekle (style.a1b2c3.css gibi).
+# Böylece nginx'in uzun tarayıcı önbelleği (expires max) sorun olmaz:
+# dosya her değiştiğinde adı da değişir, ziyaretçi hep yeni sürümü alır.
+# Not: Yalnızca DEBUG=False iken devreye girer; collectstatic şarttır.
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"},
+}
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
