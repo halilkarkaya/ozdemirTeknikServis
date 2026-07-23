@@ -7,7 +7,7 @@ teşekkür mahiyetinde aşağıda belirtilmiştir).
 
 | Dosya | Fotoğrafçı | Kaynak |
 |-------|-----------|--------|
-| `hero-klima-dis-unite.jpg` | Andrianto Cahyono Putro | https://unsplash.com/photos/an-air-conditioning-unit-mounted-on-a-wall-ItJsBJlf5Qw |
+| `hero-klima-salon.jpg` | Caroline Badran | https://unsplash.com/photos/modern-living-room-with-air-conditioner-and-decor-BsHycOlU6Bg |
 | `galeri-klima.jpg` | Zulfugar Karimov | https://unsplash.com/photos/white-air-conditioner-unit-displaying-22-degrees-mM0vW68NY0g |
 | `galeri-kombi.jpg` | Timur Shakerzianov | https://unsplash.com/photos/a-man-working-on-a-pipe-in-a-cabinet-wzIjLL4KB-4 |
 | `galeri-beyaz-esya.jpg` | Oli Woodman | https://unsplash.com/photos/white-front-load-washing-machine-nUL_PP69IPA |

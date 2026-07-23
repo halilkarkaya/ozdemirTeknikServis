@@ -166,9 +166,9 @@ FAQ = [
 ]
 
 HERO_IMAGE = {
-    "img": "img/hero-klima-dis-unite.jpg",
-    "alt": "Duvara monte edilmiş temiz klima dış ünitesi",
-    "credit": "Andrianto Cahyono Putro / Unsplash",
+    "img": "img/hero-klima-salon.jpg",
+    "alt": "Modern aydınlık salonda panel üzerine monte duvar tipi split klima",
+    "credit": "Caroline Badran / Unsplash",
 }
 
 
