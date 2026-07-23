@@ -643,6 +643,72 @@ body { padding-bottom: 72px; }
 .btn-outline-light { border: 1px solid rgba(255,255,255,.4); color: #fff; }
 .btn-outline-light:hover { border-color: #fff; color: #fff; }
 
+/* Ana sayfa: talep formu ve konum aynı karar alanında */
+.home-request-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(700px 360px at 4% 100%, rgba(138,223,232,.24), transparent 68%),
+    linear-gradient(180deg, #F8FCFD 0%, var(--wash) 100%);
+  border-top: 1px solid var(--line);
+}
+.home-request-section::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(90deg, rgba(10,62,73,.03) 0 1px, transparent 1px 90px);
+}
+.home-request-section > .wrap { position: relative; z-index: 1; }
+.home-request-head {
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+  gap: clamp(26px, 6vw, 72px); align-items: end; margin-bottom: 36px;
+}
+.home-request-head h2 { margin: 0; }
+.home-request-head > p {
+  margin: 0; max-width: 480px; color: var(--muted); font-size: 16px; line-height: 1.65;
+}
+.home-request-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px; align-items: stretch;
+}
+.home-form-card, .home-location-card {
+  min-width: 0; padding: clamp(22px, 3vw, 32px);
+  border: 1px solid var(--line); border-radius: 24px; background: #fff;
+  box-shadow: 0 16px 42px rgba(10,62,73,.08);
+}
+.home-form-card { display: flex; flex-direction: column; }
+.home-form-card form { flex: 1; display: flex; flex-direction: column; }
+.home-form-card .f-submit { margin-top: auto; }
+.home-location-card { display: flex; flex-direction: column; gap: 20px; }
+.home-card-title {
+  display: flex; align-items: flex-start; gap: 14px; min-height: 62px; margin-bottom: 22px;
+}
+.home-card-title h3 { margin: 0; color: var(--brand-dark); font-size: 23px; line-height: 1.15; }
+.home-card-title p { margin: 7px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.home-card-no {
+  display: grid; place-items: center; flex: none; width: 38px; height: 38px;
+  border-radius: 12px; background: var(--brand-soft); color: var(--brand-dark);
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+}
+.home-map { flex: 1; min-height: 285px; aspect-ratio: auto; }
+.home-map iframe { border-radius: 16px; }
+.home-location-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.home-location-actions .pill { flex: 1; justify-content: center; min-width: 150px; }
+
+@media (max-width: 860px) {
+  .home-request-head, .home-request-grid { grid-template-columns: 1fr; }
+  .home-request-head { align-items: start; }
+  .home-request-head > p { max-width: 620px; }
+}
+@media (max-width: 560px) {
+  .home-request-section { background: linear-gradient(180deg, #F1FAFB 0%, #E6F5F7 100%); }
+  .home-request-grid { gap: 14px; }
+  .home-form-card, .home-location-card { border-radius: 20px; }
+  .home-card-title { min-height: 0; margin-bottom: 18px; }
+  .home-form-card .f-row { display: block; }
+  .home-map { min-height: 260px; aspect-ratio: 1 / 1; }
+  .home-location-actions { flex-direction: column; }
+  .home-location-actions .pill { width: 100%; }
+}
+
 .breadcrumb {
   display: flex; align-items: center; gap: 8px; margin-bottom: 26px;
   color: var(--muted); font-size: 13px; font-weight: 700;

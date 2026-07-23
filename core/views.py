@@ -305,10 +305,13 @@ def _site_context(active_page="", **extra):
 
 
 def index(request):
-    # Eski ana sayfa formuna gönderilen kayıtları yeni form sayfasına yönlendir.
     if request.method == "POST":
         return service_request(request)
-    return render(request, "index.html", _site_context("home"))
+    return render(
+        request,
+        "index.html",
+        _site_context("home", form=ServiceRequestForm()),
+    )
 
 
 def services_page(request):

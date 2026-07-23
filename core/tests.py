@@ -28,10 +28,11 @@ class PublicPageTests(TestCase):
         )
         self.assertEqual(response.status_code, 404)
 
-    def test_homepage_is_shortened_and_links_to_service_request(self):
+    def test_homepage_contains_request_form_and_map(self):
         response = self.client.get(reverse("core:index"))
         self.assertContains(response, reverse("core:service_request"))
-        self.assertNotContains(response, "<form", html=False)
+        self.assertContains(response, "<form", html=False)
+        self.assertContains(response, "maps.google.com/maps")
 
 
 class ServiceRequestTests(TestCase):

@@ -122,16 +122,44 @@
   </div>
 </section>
 
-<section class="section home-cta">
-  <div class="wrap cta-panel reveal" data-reveal>
-    <div>
-      <p class="eyebrow">Servis Talebi</p>
-      <h2>Arızayı anlatın,<br>aynı gün dönüş yapalım</h2>
-      <p>Form iki dakikadan kısa sürer. Acil durumlarda doğrudan arayabilirsiniz.</p>
+<section id="servis-talebi" class="section home-request-section">
+  <div class="wrap">
+    <div class="home-request-head reveal" data-reveal>
+      <div>
+        <p class="eyebrow">Servis Talebi &amp; Konum</p>
+        <h2>Buradan talep bırakın,<br>aynı gün size ulaşalım</h2>
+      </div>
+      <p>Klima, kombi veya beyaz eşya arızanızı kısaca iletin. Pamukkale merkezli ekibimiz Denizli genelinde yerinde servis verir.</p>
     </div>
-    <div class="cta-panel-actions">
-      <a class="btn btn-light" href="{% url 'core:service_request' %}">Talep Oluştur</a>
-      <a class="btn btn-outline-light" href="tel:{{ b.phone_e164 }}">{{ b.phone_display }}</a>
+
+    <div class="home-request-grid">
+      <div class="form-card home-form-card reveal" data-reveal>
+        <div class="home-card-title">
+          <span class="home-card-no">01</span>
+          <div>
+            <h3>Servis talebi oluşturun</h3>
+            <p>Bilgileriniz yalnızca servis dönüşü için kullanılır.</p>
+          </div>
+        </div>
+        {% include "_request_form.html" %}
+      </div>
+
+      <div class="home-location-card reveal" data-reveal data-delay="120">
+        <div class="home-card-title">
+          <span class="home-card-no">02</span>
+          <div>
+            <h3>Konumumuz</h3>
+            <p>{{ b.address }}</p>
+          </div>
+        </div>
+        <div class="map home-map">
+          <iframe title="{{ b.name }} konumu" src="{{ b.maps_embed }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <div class="home-location-actions">
+          <a class="pill pill-dark" href="{{ b.maps_directions }}" target="_blank" rel="noopener">Yol Tarifi Al</a>
+          <a class="pill pill-wa" href="tel:{{ b.phone_e164 }}">{{ b.phone_display }}</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
