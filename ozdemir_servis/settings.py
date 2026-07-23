@@ -24,6 +24,12 @@ ALLOWED_HOSTS = os.environ.get(
     "DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,0.0.0.0"
 ).split(",")
 
+# Formdan POST kabul edilecek https origin'ler (Django 4+ zorunlu kılıyor).
+# Sunucuda gerçek alan adını DJANGO_CSRF_TRUSTED ortam değişkeniyle geçin.
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    "DJANGO_CSRF_TRUSTED", "https://taslak.merkeziyetsizburs.com.tr"
+).split(",")
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

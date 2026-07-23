@@ -198,6 +198,22 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
 }
 .marquee-track span { padding-right: 40px; }
 
+/* ── Güven şeridi (sayaçlar) ─────────────────────────────────────────────── */
+.stats-band {
+  background: #fff; border-bottom: 1px solid var(--line);
+  padding: 34px clamp(16px, 4vw, 48px);
+}
+.stats-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;
+}
+@media (max-width: 640px) { .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 26px 16px; } }
+.stat { display: flex; flex-direction: column; gap: 4px; }
+.stat-no {
+  font-family: var(--font-display); font-weight: 600; color: var(--accent-ink);
+  font-size: clamp(28px, 4vw, 38px); line-height: 1;
+}
+.stat-label { font-size: 13px; font-weight: 600; color: var(--muted); }
+
 /* ── Bölüm başlıkları ────────────────────────────────────────────────────── */
 .section { padding: clamp(70px, 10vw, 130px) clamp(16px, 4vw, 48px); }
 .section-tight { padding: 0 clamp(16px, 4vw, 48px) clamp(70px, 10vw, 130px); }
@@ -325,6 +341,42 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
 }
 .faq[open] .plus { transform: rotate(45deg); }
 .faq p { margin: 12px 0 0; font-size: 15px; line-height: 1.65; color: var(--light-muted); text-wrap: pretty; }
+
+/* ── Servis Talebi (form) ────────────────────────────────────────────────── */
+.form-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 18px;
+  padding: 28px; box-shadow: 0 6px 24px rgba(20,24,29,.06);
+}
+.hp { position: absolute !important; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.f-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.f-row .f-field { flex: 1; min-width: 180px; }
+.f-field {
+  display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px;
+  font-size: 13px; font-weight: 700; letter-spacing: .04em; color: var(--light-muted-2);
+  text-transform: uppercase;
+}
+.f-field input, .f-field select, .f-field textarea {
+  font-family: var(--font-body); font-size: 15px; font-weight: 500;
+  text-transform: none; letter-spacing: normal; color: var(--light-ink);
+  background: #fff; border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px 14px; width: 100%;
+}
+.f-field input:focus, .f-field select:focus, .f-field textarea:focus {
+  outline: none; border-color: var(--accent-ink); box-shadow: 0 0 0 3px rgba(154,123,60,.14);
+}
+.f-field textarea { resize: vertical; min-height: 90px; }
+.f-err {
+  text-transform: none; letter-spacing: normal; font-style: normal;
+  font-weight: 700; font-size: 12.5px; color: var(--accent-ink);
+}
+.f-submit { width: 100%; border: 0; cursor: pointer; margin-top: 4px; }
+.form-success { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.fs-ico {
+  width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: #14181D;
+  display: grid; place-items: center; font-size: 20px; font-weight: 700; flex: none;
+}
+.form-success h3 { margin: 0; font-size: 21px; }
+.form-success p { margin: 0; color: var(--light-muted); font-size: 15px; line-height: 1.6; }
 
 /* ── İletişim ────────────────────────────────────────────────────────────── */
 .contact {

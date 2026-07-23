@@ -95,6 +95,7 @@
     <nav class="nav">
       <a href="#hizmetler">Hizmetler</a>
       <a href="#yorumlar">Yorumlar</a>
+      <a href="#servis-talebi">Servis Talebi</a>
       <a href="#iletisim">İletişim</a>
     </nav>
   </header>
@@ -147,6 +148,18 @@
     <div class="marquee-track">
       <span>KLİMA BAKIM ✦ KOMBİ TAMİR ✦ BEYAZ EŞYA SERVİSİ ✦ 7/24 AÇIK ✦ AYNI GÜN SERVİS ✦ KLİMA &amp; KOMBİ SATIŞI ✦&nbsp;</span>
       <span>KLİMA BAKIM ✦ KOMBİ TAMİR ✦ BEYAZ EŞYA SERVİSİ ✦ 7/24 AÇIK ✦ AYNI GÜN SERVİS ✦ KLİMA &amp; KOMBİ SATIŞI ✦&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- Güven şeridi (sayaçlar) -->
+  <div class="stats-band">
+    <div class="wrap stats-grid">
+      {% for st in stats %}
+      <div class="stat reveal" data-reveal data-delay="{% cycle '0' '80' '160' '240' %}">
+        <span class="stat-no" data-count="{{ st.value|stringformat:'f' }}" data-decimals="{{ st.decimals }}" data-prefix="{{ st.prefix }}" data-suffix="{{ st.suffix }}">{{ st.prefix }}0{{ st.suffix }}</span>
+        <span class="stat-label">{{ st.label }}</span>
+      </div>
+      {% endfor %}
     </div>
   </div>
 
@@ -244,6 +257,59 @@
           <p>{{ f.a }}</p>
         </details>
         {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Servis Talebi -->
+  <section id="servis-talebi" class="section-tight light">
+    <div class="wrap contact">
+      <div class="contact-info reveal" data-reveal>
+        <p class="eyebrow">Servis Talebi</p>
+        <h2>2 dakikada talep bırakın,<br>aynı gün dönelim</h2>
+        <p class="lead" style="color:var(--light-muted)">
+          Formu doldurun, arızanızı not edelim — size en kısa sürede biz ulaşırız.
+          Acil durumdaysanız doğrudan arayabilirsiniz.
+        </p>
+        <div class="contact-cta">
+          <a class="pill pill-dark" href="tel:{{ b.phone_e164 }}">Hemen Ara</a>
+        </div>
+      </div>
+      <div class="form-card reveal" data-reveal data-delay="140">
+        {% if talep_ok %}
+        <div class="form-success">
+          <span class="fs-ico">✓</span>
+          <h3>Talebiniz alındı</h3>
+          <p>En kısa sürede sizi arayacağız. Daha hızlı olsun isterseniz WhatsApp'tan da yazabilirsiniz.</p>
+          <a class="pill pill-wa" href="{{ b.whatsapp_text }}" target="_blank" rel="noopener">WhatsApp'tan hızlandır</a>
+        </div>
+        {% else %}
+        <form method="post" action="#servis-talebi" novalidate>
+          {% csrf_token %}
+          {{ form.website }}
+          <div class="f-row">
+            <label class="f-field">
+              <span>Ad Soyad</span>
+              {{ form.name }}
+              {% if form.name.errors %}<em class="f-err">{{ form.name.errors.0 }}</em>{% endif %}
+            </label>
+            <label class="f-field">
+              <span>Telefon</span>
+              {{ form.phone }}
+              {% if form.phone.errors %}<em class="f-err">{{ form.phone.errors.0 }}</em>{% endif %}
+            </label>
+          </div>
+          <label class="f-field">
+            <span>Cihaz</span>
+            {{ form.device }}
+          </label>
+          <label class="f-field">
+            <span>Arıza / Not</span>
+            {{ form.message }}
+          </label>
+          <button class="btn btn-wa f-submit" type="submit">Talep Gönder</button>
+        </form>
+        {% endif %}
       </div>
     </div>
   </section>

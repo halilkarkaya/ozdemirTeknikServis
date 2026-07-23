@@ -5,7 +5,9 @@ Sitenin tüm metin içeriği burada, tek yerde toplanmıştır; şablon (index.h
 bu verileri döngülerle basar. Böylece hizmet, yorum, SSS gibi içerikleri
 düzenlemek için HTML'e dokunmanıza gerek kalmaz — sadece bu dosyayı düzenleyin.
 """
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+from .forms import ServiceRequestForm
 
 # ── İletişim / işletme bilgileri ────────────────────────────────────────────
 BUSINESS = {
@@ -104,6 +106,14 @@ BRANDS = (
     "Protherm ve diğerleri"
 )
 
+# ── Güven şeridi (sayaçlar) — hepsi sitede zaten geçen doğrulanabilir değerler
+STATS = [
+    {"value": 5.0, "decimals": 1, "prefix": "", "suffix": "", "label": "Google puanı"},
+    {"value": 85, "decimals": 0, "prefix": "", "suffix": "+", "label": "mutlu müşteri yorumu"},
+    {"value": 24, "decimals": 0, "prefix": "", "suffix": "", "label": "saat kesintisiz hizmet"},
+    {"value": 100, "decimals": 0, "prefix": "%", "suffix": "", "label": "garantili işçilik"},
+]
+
 # ── Galeri (fotoğraflar static/img altında; kredi bilgisi CREDITS.md'de) ─────
 GALLERY = [
     {"img": "img/galeri-klima.jpg", "alt": "Duvar tipi split klima ünitesi",
@@ -173,15 +183,31 @@ HERO_IMAGE = {
 
 
 def index(request):
+    if request.method == "POST":
+        form = ServiceRequestForm(request.POST)
+        if form.is_valid():
+            if not form.is_spam():
+                form.save()
+            # Bot da olsa gerçek kullanıcı da olsa aynı başarı yanıtını ver
+            # (spam'e "engellendin" sinyali vermemek için) ve formu tekrar
+            # göndermeyi önlemek için (PRG deseni) yönlendir.
+            return redirect("/?talep=ok#servis-talebi")
+        # Geçersiz: formu hatalarla birlikte yeniden göster.
+    else:
+        form = ServiceRequestForm()
+
     context = {
         "b": BUSINESS,
         "services": SERVICES,
         "sales": SALES,
         "steps": STEPS,
         "brands": BRANDS,
+        "stats": STATS,
         "gallery": GALLERY,
         "hero_image": HERO_IMAGE,
         "testimonials": TESTIMONIALS,
         "faq": FAQ,
+        "form": form,
+        "talep_ok": request.GET.get("talep") == "ok",
     }
     return render(request, "index.html", context)
