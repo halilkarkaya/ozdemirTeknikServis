@@ -88,25 +88,27 @@
 
   <!-- Üst bar -->
   <header class="topbar">
-    <a class="brand-icon" href="#top" aria-label="Özdemir Teknik Servis ana sayfa">
-      {% include "_logo.html" with size=40 %}
-    </a>
-    <a class="brand-wordmark" href="#top">
-      <span>ÖZDEMİR</span>
-      <small>TEKNİK SERVİS</small>
-    </a>
-    <button class="menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Menüyü aç">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <nav class="nav" id="primary-nav" aria-label="Ana menü">
-      <a href="#hizmetler">Hizmetler</a>
-      <a class="nav-process" href="#surec">Süreç</a>
-      <a href="#yorumlar">Yorumlar</a>
-      <a href="#iletisim">İletişim</a>
-      <a class="nav-request" href="#servis-talebi">Servis Talebi</a>
-    </nav>
+    <div class="topbar-inner">
+      <a class="brand-icon" href="#top" aria-label="Özdemir Teknik Servis ana sayfa">
+        {% include "_logo.html" with size=40 %}
+      </a>
+      <a class="brand-wordmark" href="#top">
+        <span>ÖZDEMİR</span>
+        <small>TEKNİK SERVİS</small>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Menüyü aç">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav" id="primary-nav" aria-label="Ana menü">
+        <a href="#hizmetler">Hizmetler</a>
+        <a class="nav-process" href="#surec">Süreç</a>
+        <a href="#yorumlar">Yorumlar</a>
+        <a href="#iletisim">İletişim</a>
+        <a class="nav-request" href="#servis-talebi">Servis Talebi</a>
+      </nav>
+    </div>
   </header>
 
   <!-- Hero -->
