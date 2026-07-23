@@ -476,6 +476,29 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
 
 body { padding-bottom: 72px; }
 
+/* ── Mobilde hafif tonal katmanlar ───────────────────────────────────────── */
+@media (max-width: 560px) {
+  body { background: #F8FCFD; }
+  .topbar { background: rgba(248,252,253,.97); }
+  .hero {
+    background:
+      radial-gradient(560px 340px at 90% 5%, rgba(121,217,229,.24), transparent 64%),
+      linear-gradient(180deg, #F8FDFE 0%, #FFFFFF 58%, #F0F9FB 100%);
+  }
+  .badge-ghost { background: rgba(255,255,255,.72); }
+  .hero-features {
+    margin-top: 0;
+    padding: 15px;
+    border: 1px solid rgba(11,111,130,.14);
+    border-radius: 18px;
+    background: rgba(121,217,229,.10);
+  }
+  .stats-band { background: #EEF8FA; }
+  #hizmetler { background: linear-gradient(180deg, #F8FDFE 0%, #FFFFFF 72%); }
+  .light { background: #F1F8FA; }
+  .footer { background: #F8FCFD; }
+}
+
 /* ── Açılış animasyonu (klima · serin hava) ──────────────────────────────── */
 #splash {
   position: fixed; inset: 0; z-index: 9999; background: #fff;
