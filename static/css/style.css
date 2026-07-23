@@ -19,6 +19,9 @@
   --light-muted-2: #6E7783;
   --star: #C9A24B;          /* dingin altın (yıldızlar) */
   --maxw: 1100px;
+  /* Claude/Anthropic havası: başlıklar yumuşak serif, gövde grotesk sans */
+  --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-body: 'Space Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -28,7 +31,7 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   background: var(--bg);
-  font-family: 'Archivo', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-family: var(--font-body);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
@@ -39,7 +42,7 @@ a:hover { color: var(--light-ink); }
 img { max-width: 100%; display: block; }
 ::selection { background: var(--accent); color: #14181D; }
 
-h1, h2, h3 { font-family: 'Archivo Black', 'Arial Black', sans-serif; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
 
 .wrap { max-width: var(--maxw); margin: 0 auto; }
 
@@ -69,7 +72,7 @@ h1, h2, h3 { font-family: 'Archivo Black', 'Arial Black', sans-serif; }
 .brand { display: flex; align-items: center; gap: 10px; color: var(--light-ink); }
 .brand svg { flex: none; display: block; }
 .brand-name {
-  font-family: 'Archivo Black', sans-serif; font-size: 13px;
+  font-family: var(--font-display); font-weight: 600; font-size: 14px;
   letter-spacing: .08em; line-height: 1.15;
 }
 .nav { display: flex; gap: 22px; font-size: 14px; font-weight: 600; }
@@ -128,7 +131,7 @@ h1, h2, h3 { font-family: 'Archivo Black', 'Arial Black', sans-serif; }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  font-weight: 800; font-size: 16px; padding: 16px 26px; border-radius: 999px;
+  font-weight: 700; font-size: 16px; padding: 16px 26px; border-radius: 999px;
   color: var(--ink); transition: transform .25s ease, background .25s ease, border-color .25s ease;
 }
 .btn:hover { transform: translateY(-3px); }
@@ -190,7 +193,7 @@ h1, h2, h3 { font-family: 'Archivo Black', 'Arial Black', sans-serif; }
 }
 .marquee-track {
   display: flex; width: max-content; animation: marquee 22s linear infinite;
-  font-family: 'Archivo Black', sans-serif; font-size: 17px; letter-spacing: .1em;
+  font-family: var(--font-display); font-weight: 600; font-size: 17px; letter-spacing: .1em;
   white-space: nowrap;
 }
 .marquee-track span { padding-right: 40px; }
@@ -199,7 +202,7 @@ h1, h2, h3 { font-family: 'Archivo Black', 'Arial Black', sans-serif; }
 .section { padding: clamp(70px, 10vw, 130px) clamp(16px, 4vw, 48px); }
 .section-tight { padding: 0 clamp(16px, 4vw, 48px) clamp(70px, 10vw, 130px); }
 .eyebrow {
-  margin: 0 0 8px; font-weight: 800; font-size: 13px; letter-spacing: .16em;
+  margin: 0 0 8px; font-weight: 700; font-size: 13px; letter-spacing: .16em;
   color: var(--accent-ink); text-transform: uppercase;
 }
 .section h2 { margin: 0 0 40px; font-size: clamp(28px, 4.5vw, 48px); line-height: 1.05; }
@@ -220,7 +223,7 @@ h1, h2, h3 { font-family: 'Archivo Black', 'Arial Black', sans-serif; }
   width: 48px; height: 48px; background: var(--accent); color: #14181D;
   display: grid; place-items: center; border-radius: 12px;
 }
-.card h3 { margin: 0; font-size: 20px; font-weight: 800; font-family: 'Archivo', sans-serif; }
+.card h3 { margin: 0; font-size: 20px; font-weight: 700; font-family: var(--font-body); }
 .card p { margin: 0; font-size: 15px; line-height: 1.65; color: var(--muted-2); text-wrap: pretty; }
 
 .sales-grid {
@@ -230,7 +233,7 @@ h1, h2, h3 { font-family: 'Archivo Black', 'Arial Black', sans-serif; }
 .sale {
   border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 10px;
 }
-.sale h3 { margin: 0; font-size: 20px; font-weight: 800; font-family: 'Archivo', sans-serif; }
+.sale h3 { margin: 0; font-size: 20px; font-weight: 700; font-family: var(--font-body); }
 .sale p { margin: 0; font-size: 15px; line-height: 1.65; text-wrap: pretty; }
 .sale-hot {
   background: linear-gradient(135deg, var(--accent), color-mix(in oklab, var(--accent) 74%, #2a2620));
@@ -247,14 +250,14 @@ h1, h2, h3 { font-family: 'Archivo Black', 'Arial Black', sans-serif; }
   box-shadow: 0 6px 22px rgba(20,24,29,.05);
   display: flex; flex-direction: column; gap: 10px;
 }
-.step .no { font-family: 'Archivo Black', sans-serif; font-size: 40px; color: var(--accent-ink); line-height: 1; }
-.step h3 { margin: 0; font-size: 19px; font-weight: 800; font-family: 'Archivo', sans-serif; }
+.step .no { font-family: var(--font-display); font-weight: 600; font-size: 40px; color: var(--accent-ink); line-height: 1; }
+.step h3 { margin: 0; font-size: 19px; font-weight: 700; font-family: var(--font-body); }
 .step p { margin: 0; font-size: 15px; line-height: 1.65; color: var(--muted-2); text-wrap: pretty; }
 .brands {
   margin-top: 36px; display: flex; align-items: baseline; gap: 12px 10px; flex-wrap: wrap;
 }
 .brands .label {
-  font-weight: 800; font-size: 13px; letter-spacing: .16em; color: var(--light-muted-2);
+  font-weight: 700; font-size: 13px; letter-spacing: .16em; color: var(--light-muted-2);
   text-transform: uppercase; flex: none;
 }
 .brands .list { font-size: 14px; line-height: 2; color: var(--muted-2); }
@@ -289,7 +292,7 @@ h1, h2, h3 { font-family: 'Archivo Black', 'Arial Black', sans-serif; }
   display: flex; align-items: center; gap: 12px; background: #fff;
   padding: 12px 18px; border-radius: 14px; box-shadow: 0 6px 24px rgba(20,24,29,.08);
 }
-.score-card .big { font-family: 'Archivo Black', sans-serif; font-size: 30px; }
+.score-card .big { font-family: var(--font-display); font-weight: 600; font-size: 30px; }
 .score-card small { font-size: 13px; line-height: 1.4; color: var(--light-muted); }
 .score-card .stars { font-size: 15px; }
 
@@ -312,7 +315,7 @@ h1, h2, h3 { font-family: 'Archivo Black', 'Arial Black', sans-serif; }
 }
 .faq summary {
   display: flex; align-items: center; justify-content: space-between; gap: 14px;
-  font-size: 16px; font-weight: 800; cursor: pointer; list-style: none;
+  font-size: 16px; font-weight: 700; cursor: pointer; list-style: none;
 }
 .faq summary::-webkit-details-marker { display: none; }
 .faq .plus {
@@ -368,7 +371,7 @@ h1, h2, h3 { font-family: 'Archivo Black', 'Arial Black', sans-serif; }
 }
 .dockbar a {
   flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
-  font-weight: 800; font-size: 15px; padding: 13px 8px; border-radius: 999px; color: #fff;
+  font-weight: 700; font-size: 15px; padding: 13px 8px; border-radius: 999px; color: #fff;
 }
 .dockbar .d-call { background: var(--light-ink); color: #fff; }
 .dockbar .d-wa { background: transparent; color: var(--light-ink); border: 1px solid rgba(20,24,29,.2); }
@@ -419,7 +422,7 @@ body { padding-bottom: 72px; }
 }
 .splash-ring-2 { animation-delay: .65s; }
 .splash-name {
-  font-family: 'Archivo Black', 'Arial Black', sans-serif; color: var(--light-ink);
+  font-family: var(--font-display); font-weight: 600; color: var(--light-ink);
   font-size: clamp(21px, 6vw, 32px); line-height: 1.08; letter-spacing: .05em;
   animation: splashUp .7s ease .55s both;
 }
