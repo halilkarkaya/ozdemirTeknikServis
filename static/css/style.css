@@ -5,16 +5,20 @@
    ========================================================================== */
 
 :root {
-  --accent: #79D9E5;        /* ferah açık turkuaz — dolgu ikon/vurgu */
-  --accent-ink: #0B6F82;    /* beyaz zeminde okunur koyu petrol */
+  --brand-dark: #0A3E49;    /* kurumsal omurga: navbar ve ana butonlar */
+  --brand: #1598AA;         /* canlı turkuaz: büyük vurgu ve çizgiler */
+  --brand-soft: #DDF3F6;    /* açık turkuaz yüzey */
+  --accent: #8ADFE8;        /* buz mavisi: ikon ve küçük dekorlar */
+  --accent-ink: #08798A;    /* küçük metinde okunur turkuaz */
+  --wash: #EFF9FA;          /* bölüm arka planı */
   --bg: #FFFFFF;            /* ana zemin: beyaz */
-  --ink: #14181D;          /* ana metin: koyu */
+  --ink: #122B31;           /* ana metin: petrol alt tonlu koyu */
   --muted: #4C5661;        /* gövde gri */
   --muted-2: #5C6672;      /* ikincil gri */
-  --line: #E7E9EE;         /* ince kenarlık */
-  --panel: #F4F6F9;        /* hafif gri panel/bölüm zemini */
-  --light: #F4F6F9;        /* açık bölümler (whisper grey) */
-  --light-ink: #14181D;
+  --line: #DCEAED;         /* ince kenarlık */
+  --panel: #EFF9FA;        /* hafif turkuaz panel/bölüm zemini */
+  --light: #EFF9FA;        /* açık bölümler */
+  --light-ink: #122B31;
   --light-muted: #4C5661;
   --light-muted-2: #6E7783;
   --star: #0B6F82;          /* açık zeminde okunur turkuaz yıldızlar */
@@ -84,9 +88,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
 }
 .brand-wordmark {
   display: flex; flex-direction: column; align-items: flex-start;
-  color: #0A3E49; line-height: 1; white-space: nowrap;
+  color: var(--brand-dark); line-height: 1; white-space: nowrap;
 }
-.brand-wordmark:hover { color: #0A3E49; }
+.brand-wordmark:hover { color: var(--brand-dark); }
 .brand-wordmark span {
   font-family: var(--font-display); font-weight: 700; font-size: 16px;
   letter-spacing: .075em;
@@ -102,7 +106,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
 .nav-process { display: none; }
 .nav .nav-request {
   padding: 10px 16px; border-radius: 999px;
-  background: #0A3E49; color: #fff;
+  background: var(--brand-dark); color: #fff;
   box-shadow: 0 7px 18px rgba(10,62,73,.16);
 }
 .nav .nav-request:hover { background: #062D35; color: #fff; }
@@ -110,7 +114,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
   display: none;
   width: 42px; height: 42px; padding: 10px;
   border: 0; border-radius: 12px; background: transparent;
-  color: #0A3E49; cursor: pointer;
+  color: var(--brand-dark); cursor: pointer;
 }
 .menu-toggle span {
   display: block; width: 21px; height: 2px; margin: 4px auto;
@@ -149,11 +153,11 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
     display: flex; align-items: center; min-height: 44px;
     padding: 10px 12px; border-radius: 11px; white-space: nowrap;
   }
-  .nav a:hover { background: #EEF8FA; color: #0A3E49; }
+  .nav a:hover { background: var(--wash); color: var(--brand-dark); }
   .nav-process { display: inline; }
   .nav .nav-request {
     justify-content: center; margin-top: 4px;
-    background: #0A3E49; color: #fff;
+    background: var(--brand-dark); color: #fff;
   }
   .topbar.is-menu-open .nav {
     opacity: 1; visibility: visible; pointer-events: auto;
@@ -169,7 +173,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
   position: relative; min-height: 100svh; display: flex; align-items: center;
   padding: 110px clamp(16px, 4vw, 48px) 80px;
   background:
-    radial-gradient(1200px 600px at 80% -10%, rgba(121,217,229,.18), transparent 60%),
+    radial-gradient(1200px 600px at 80% -10%, rgba(138,223,232,.24), transparent 60%),
     radial-gradient(900px 500px at -10% 110%, rgba(20,24,29,.03), transparent 60%),
     var(--bg);
 }
@@ -193,12 +197,12 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
 .badge-light .stars { color: var(--accent); }
 .badge-ghost { border: 1px solid rgba(20,24,29,.18); color: var(--muted); font-weight: 600; }
 .stars { color: var(--star); letter-spacing: 2px; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); flex: none; }
 
 .hero h1 {
   margin: 0; font-size: clamp(37px, 5.1vw, 60px); line-height: .98; letter-spacing: -.01em;
 }
-.hero h1 .accent { color: var(--accent-ink); }
+.hero h1 .accent { color: var(--brand); }
 .lead {
   margin: 0; max-width: 560px; font-size: clamp(16px, 2vw, 19px);
   line-height: 1.6; color: var(--muted); text-wrap: pretty;
@@ -232,7 +236,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
 /* Dekoratif şampanya çerçeve: fotoğrafın arkasında sağ-alta ofsetli halka */
 .hero-media::before {
   content: ""; position: absolute; inset: 22px -14px -14px 22px;
-  border: 2px solid var(--accent); border-radius: 22px; opacity: .5;
+  border: 2px solid var(--brand); border-radius: 22px; opacity: .45;
   pointer-events: none;
 }
 .hero-photo {
@@ -324,9 +328,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
   box-shadow: 0 6px 22px rgba(20,24,29,.05);
   transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
 }
-.card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(20,24,29,.09); }
+.card:hover { border-color: var(--brand); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(20,24,29,.09); }
 .card .icon {
-  width: 48px; height: 48px; background: var(--accent); color: #14181D;
+  width: 48px; height: 48px; background: var(--brand-soft); color: var(--brand-dark);
   display: grid; place-items: center; border-radius: 12px;
 }
 .card h3 { margin: 0; font-size: 20px; font-weight: 700; font-family: var(--font-body); }
@@ -342,10 +346,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
 .sale h3 { margin: 0; font-size: 20px; font-weight: 700; font-family: var(--font-body); }
 .sale p { margin: 0; font-size: 15px; line-height: 1.65; text-wrap: pretty; }
 .sale-hot {
-  background: linear-gradient(135deg, var(--accent), color-mix(in oklab, var(--accent) 74%, #2a2620));
-  color: #14181D; box-shadow: 0 10px 30px rgba(121,217,229,.3);
+  background: linear-gradient(135deg, var(--accent), var(--brand-soft));
+  color: var(--brand-dark); box-shadow: 0 10px 30px rgba(21,152,170,.20);
 }
-.sale-hot h3 { color: #14181D; }
+.sale-hot h3 { color: var(--brand-dark); }
 .sale-hot p { color: rgba(20,24,29,.8); }
 .sale-plain { background: #fff; border: 1px solid var(--line); box-shadow: 0 6px 22px rgba(20,24,29,.05); }
 .sale-plain p { color: var(--muted-2); }
@@ -452,7 +456,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
   padding: 12px 14px; width: 100%;
 }
 .f-field input:focus, .f-field select:focus, .f-field textarea:focus {
-  outline: none; border-color: var(--accent-ink); box-shadow: 0 0 0 3px rgba(11,111,130,.16);
+  outline: none; border-color: var(--accent-ink); box-shadow: 0 0 0 3px rgba(8,121,138,.16);
 }
 .f-field textarea { resize: vertical; min-height: 90px; }
 .f-err {
@@ -462,7 +466,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
 .f-submit { width: 100%; border: 0; cursor: pointer; margin-top: 4px; }
 .form-success { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
 .fs-ico {
-  width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: #14181D;
+  width: 44px; height: 44px; border-radius: 50%; background: var(--brand-soft); color: var(--brand-dark);
   display: grid; place-items: center; font-size: 20px; font-weight: 700; flex: none;
 }
 .form-success h3 { margin: 0; font-size: 21px; }
@@ -526,25 +530,25 @@ body { padding-bottom: 72px; }
 
 /* ── Mobilde hafif tonal katmanlar ───────────────────────────────────────── */
 @media (max-width: 560px) {
-  body { background: #F8FCFD; }
+  body { background: #F6FBFC; }
   .topbar { background: rgba(248,252,253,.97); }
   .hero {
     background:
-      radial-gradient(560px 340px at 90% 5%, rgba(121,217,229,.24), transparent 64%),
-      linear-gradient(180deg, #F8FDFE 0%, #FFFFFF 58%, #F0F9FB 100%);
+      radial-gradient(560px 340px at 90% 5%, rgba(138,223,232,.30), transparent 64%),
+      linear-gradient(180deg, #F6FCFD 0%, #FFFFFF 58%, #EAF7F9 100%);
   }
   .badge-ghost { background: rgba(255,255,255,.72); }
   .hero-features {
     margin-top: 0;
     padding: 15px;
-    border: 1px solid rgba(11,111,130,.14);
+    border: 1px solid rgba(8,121,138,.16);
     border-radius: 18px;
-    background: rgba(121,217,229,.10);
+    background: rgba(21,152,170,.09);
   }
-  .stats-band { background: #EEF8FA; }
-  #hizmetler { background: linear-gradient(180deg, #F8FDFE 0%, #FFFFFF 72%); }
-  .light { background: #F1F8FA; }
-  .footer { background: #F8FCFD; }
+  .stats-band { background: var(--wash); }
+  #hizmetler { background: linear-gradient(180deg, #F4FBFC 0%, #FFFFFF 72%); }
+  .light { background: #EAF7F9; }
+  .footer { background: #F6FBFC; }
 }
 
 /* ── Açılış animasyonu (klima · serin hava) ──────────────────────────────── */
@@ -566,7 +570,7 @@ body { padding-bottom: 72px; }
   animation: airDrift 3.4s ease-in-out .3s both;
 }
 .splash-air path {
-  fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round;
+  fill: none; stroke: var(--brand); stroke-width: 2; stroke-linecap: round;
   stroke-dasharray: 640; opacity: 0;
   animation: airDraw 1.5s ease .3s both;
 }
@@ -576,7 +580,7 @@ body { padding-bottom: 72px; }
 /* Kar taneleri */
 .flake {
   position: absolute; top: -6%; left: var(--x); z-index: 1;
-  font-size: var(--s); line-height: 1; color: var(--accent); opacity: 0;
+  font-size: var(--s); line-height: 1; color: var(--brand); opacity: 0;
   animation: flakeFall 2.7s linear var(--d) both;
 }
 
@@ -586,7 +590,7 @@ body { padding-bottom: 72px; }
 .splash-badge svg { position: relative; z-index: 1; animation: splashLogo .85s cubic-bezier(.2,.7,.2,1) .15s both; }
 .splash-ring {
   position: absolute; top: 50%; left: 50%; width: 78px; height: 78px; margin: -39px 0 0 -39px;
-  border: 2px solid var(--accent); border-radius: 50%; opacity: 0;
+  border: 2px solid var(--brand); border-radius: 50%; opacity: 0;
   animation: splashRing 1.9s ease-out .2s both;
 }
 .splash-ring-2 { animation-delay: .65s; }
