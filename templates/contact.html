@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}İletişim — {{ b.name }}{% endblock %}
+{% block meta_description %}Özdemir Teknik Servis telefon, WhatsApp, adres ve yol tarifi bilgileri. Denizli genelinde 7/24 servis.{% endblock %}
+
+{% block content %}
+<section class="page-hero contact-page-hero">
+  <div class="wrap page-hero-inner">
+    <p class="eyebrow reveal" data-reveal>İletişim</p>
+    <h1 class="reveal" data-reveal data-delay="80">Arayın, yazın,<br><span>aynı gün gelelim</span></h1>
+    <p class="page-lead reveal" data-reveal data-delay="160">Pamukkale merkezli ekibimizle Denizli genelinde yerinde teknik servis veriyoruz.</p>
+  </div>
+</section>
+
+<section class="section wrap page-section-first">
+  <div class="contact">
+    <div class="contact-info reveal" data-reveal>
+      <h2>Doğrudan ulaşın</h2>
+      <div class="info-rows contact-rows">
+        <div class="info-row"><strong>Adres</strong><span>{{ b.address }}</span></div>
+        <div class="info-row"><strong>Telefon</strong><a href="tel:{{ b.phone_e164 }}">{{ b.phone_display }}</a></div>
+        <div class="info-row"><strong>Saatler</strong><span><span class="dot"></span>{{ b.hours }}</span></div>
+      </div>
+      <div class="contact-cta">
+        <a class="pill pill-dark" href="{{ b.maps_directions }}" target="_blank" rel="noopener">Yol Tarifi Al</a>
+        <a class="pill pill-wa" href="{{ b.whatsapp_plain }}" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <a class="request-inline-link" href="{% url 'core:service_request' %}">Formla servis talebi oluşturun →</a>
+    </div>
+    <div class="map reveal" data-reveal data-delay="120">
+      <iframe title="{{ b.name }} konumu" src="{{ b.maps_embed }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% load static %}<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ b.name }} — Denizli Teknik Servis{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Denizli genelinde klima, kombi ve beyaz eşya tamir-bakım servisi. 7/24 ulaşım, aynı gün yerinde servis ve garantili işçilik.{% endblock %}">
+  <meta name="theme-color" content="#F6FBFC">
+  <meta property="og:title" content="{% block og_title %}{{ b.name }} — Klima · Kombi · Beyaz Eşya{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Denizli'de 7/24 yerinde teknik servis, bakım ve onarım.{% endblock %}">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="tr_TR">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20x='2'%20y='2'%20width='60'%20height='60'%20rx='17'%20fill='%230A3E49'/%3E%3Ccircle%20cx='32'%20cy='31'%20r='13.5'%20fill='none'%20stroke='white'%20stroke-width='4.5'/%3E%3Ccircle%20cx='25.5'%20cy='13.5'%20r='2.6'%20fill='%238ADFE8'/%3E%3Ccircle%20cx='38.5'%20cy='13.5'%20r='2.6'%20fill='%238ADFE8'/%3E%3Cpath%20d='M14%2045.5c7-4%2014.5-4.2%2022.2-1.1%204.6%201.8%209%201.7%2013.8-.5'%20fill='none'%20stroke='%238ADFE8'%20stroke-width='3'%20stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HVACBusiness",
+    "name": "{{ b.name|escapejs }}",
+    "telephone": "{{ b.phone_e164 }}",
+    "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:index' %}",
+    "image": "{{ request.scheme }}://{{ request.get_host }}{% static hero_image.img %}",
+    "priceRange": "₺₺",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "15 Mayıs Mah., Gazi Mustafa Kemal Blv. No:105 D:15",
+      "addressLocality": "Pamukkale",
+      "addressRegion": "Denizli",
+      "addressCountry": "TR"
+    },
+    "areaServed": "Denizli",
+    "openingHours": "Mo-Su 00:00-23:59",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "{{ b.review_count }}"
+    }
+  }
+  </script>
+  {% block structured_data %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  {% block splash %}{% endblock %}
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand-icon" href="{% url 'core:index' %}" aria-label="Özdemir Teknik Servis ana sayfa">
+        {% include "_logo.html" with size=40 %}
+      </a>
+      <a class="brand-wordmark" href="{% url 'core:index' %}">
+        <span>ÖZDEMİR</span>
+        <small>TEKNİK SERVİS</small>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Menüyü aç">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav" id="primary-nav" aria-label="Ana menü">
+        <a class="{% if active_page == 'services' %}is-active{% endif %}" href="{% url 'core:services' %}">Hizmetler</a>
+        <a class="{% if active_page == 'works' %}is-active{% endif %}" href="{% url 'core:works' %}">Çalışmalar</a>
+        <a class="{% if active_page == 'reviews' %}is-active{% endif %}" href="{% url 'core:reviews' %}">Yorumlar</a>
+        <a class="{% if active_page == 'contact' %}is-active{% endif %}" href="{% url 'core:contact' %}">İletişim</a>
+        <a class="nav-request {% if active_page == 'request' %}is-active{% endif %}" href="{% url 'core:service_request' %}">Servis Talebi</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <span class="footer-brand">{% include "_logo.html" with size=22 %} ÖZDEMİR TEKNİK SERVİS</span>
+      <nav class="footer-nav" aria-label="Alt menü">
+        <a href="{% url 'core:services' %}">Hizmetler</a>
+        <a href="{% url 'core:works' %}">Çalışmalar</a>
+        <a href="{% url 'core:reviews' %}">Yorumlar</a>
+        <a href="{% url 'core:contact' %}">İletişim</a>
+      </nav>
+      <span>© {% now "Y" %} · {{ b.region }} · <a href="tel:{{ b.phone_e164 }}">{{ b.phone_display }}</a></span>
+    </div>
+  </footer>
+
+  <div class="dockbar">
+    <a class="d-call" href="tel:{{ b.phone_e164 }}">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"></path></svg>
+      Hemen Ara
+    </a>
+    <a class="d-wa" href="{{ b.whatsapp_text }}" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.4 0 .1 0 .6-.2 1.2z"></path></svg>
+      WhatsApp
+    </a>
+  </div>
+
+  <script src="{% static 'js/main.js' %}" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

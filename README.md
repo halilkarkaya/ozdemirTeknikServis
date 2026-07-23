@@ -1,64 +1,69 @@
 # Özdemir Teknik Servis — Django Sitesi
 
-Denizli Pamukkale merkezli klima / kombi / beyaz eşya tamir-bakım ve satış
-firması için tek sayfalık tanıtım sitesi. Django ile sunulur; tüm metin içeriği
-`core/views.py` içinde tek yerde toplanmıştır.
+Denizli Pamukkale merkezli klima, kombi ve beyaz eşya teknik servisi için
+çok sayfalı kurumsal web sitesi.
 
-## Kurulum ve çalıştırma
+## Sayfalar
+
+- `/` — kısa, dönüşüm odaklı ana sayfa
+- `/hizmetler/` — tüm hizmetler ve satış-montaj bilgileri
+- `/hizmetler/klima-servisi/`
+- `/hizmetler/kombi-servisi/`
+- `/hizmetler/beyaz-esya-servisi/`
+- `/calismalarimiz/` — çalışma galerisi
+- `/yorumlar/` — müşteri değerlendirmeleri
+- `/servis-talebi/` — servis talep formu
+- `/iletisim/` — adres, telefon ve harita
+
+## Yerel kurulum
 
 ```bash
-# 1) (önerilir) sanal ortam
 python -m venv .venv
-.venv\Scripts\activate        # Windows
-# source .venv/bin/activate   # macOS/Linux
 
-# 2) bağımlılıklar
+# Windows
+.venv\Scripts\activate
+
+# Linux / macOS
+# source .venv/bin/activate
+
 pip install -r requirements.txt
-
-# 3) veritabanı (oturum/admin için; içerik veritabanı kullanmaz)
 python manage.py migrate
-
-# 4) geliştirme sunucusu
 python manage.py runserver
 ```
 
-Ardından tarayıcıdan http://127.0.0.1:8000 adresini açın.
+Site: `http://127.0.0.1:8000`
 
-## İçeriği düzenleme
+## İçerik düzenleme
 
-- **Metinler** (hizmetler, yorumlar, SSS, adımlar, markalar, iletişim):
-  `core/views.py` — HTML'e dokunmadan buradan düzenleyin.
-- **Marka rengi:** `static/css/style.css` içindeki `:root { --accent: #C42B2B }`.
-- **Fotoğraflar:** `static/img/` (bkz. `CREDITS.md`).
-- **Logo:** `static/logo/` ve şablondaki `templates/_logo.html`.
-- **Şablon düzeni:** `templates/index.html`.
+- İşletme bilgileri, hizmetler, yorumlar ve SSS: `core/views.py`
+- URL yapısı: `core/urls.py`
+- Ortak navbar, footer ve sabit iletişim barı: `templates/base.html`
+- Sayfa şablonları: `templates/`
+- Renkler ve tüm görsel stiller: `static/css/style.css`
+- Etkileşimler: `static/js/main.js`
 
-## Yapı
+Servis talebi kayıtları Django admin panelinde `/admin/` altında tutulur.
 
-```
-django-site/
-├─ manage.py
-├─ requirements.txt
-├─ ozdemir_servis/        # proje ayarları (settings, urls, wsgi/asgi)
-├─ core/                  # uygulama: view + içerik verisi
-├─ templates/             # index.html + _logo.html
-└─ static/                # css, js, img, logo
+## Test
+
+```bash
+python manage.py check
+python manage.py test core
 ```
 
-## Canlıya (production) çıkış notları
+## Canlı ortam
 
-`ozdemir_servis/settings.py` geliştirme için hazırdır. Yayınlarken:
+Gerekli ortam değişkenleri:
 
-1. Ortam değişkenleri: `DJANGO_SECRET_KEY` (rastgele gizli anahtar),
-   `DJANGO_DEBUG=0`, `DJANGO_ALLOWED_HOSTS=alanadi.com,www.alanadi.com`.
-2. `python manage.py collectstatic` çalıştırın.
-3. Statik dosyaları bir web sunucusu (Nginx) veya WhiteNoise ile sunun;
-   uygulamayı Gunicorn/uWSGI arkasında çalıştırın.
+- `DJANGO_SECRET_KEY`
+- `DJANGO_DEBUG=0`
+- `DJANGO_ALLOWED_HOSTS=alanadi.com,www.alanadi.com`
+- `DJANGO_CSRF_TRUSTED=https://alanadi.com,https://www.alanadi.com`
 
-## Notlar
+Güncelleme sonrasında:
 
-- Telefon numarası `0507 123 33 31` örnek olarak alınmıştır; `core/views.py`
-  içindeki `BUSINESS` sözlüğünden güncelleyin.
-- Sayfa, yerel SEO için `HVACBusiness` ve `FAQPage` schema.org yapısal verilerini
-  içerir (Google zengin sonuçları).
+```bash
+git pull --ff-only origin main
+.venv/bin/python manage.py collectstatic --noinput
+sudo systemctl restart ozdemir
 ```

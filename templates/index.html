@@ -1,369 +1,138 @@
-{% load static %}<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ b.name }} — Denizli Klima, Kombi &amp; Beyaz Eşya Tamir-Bakım</title>
-  <meta name="description" content="Denizli Pamukkale'de klima, kombi ve beyaz eşya tamir-bakım servisi. 7/24 açık, aynı gün yerinde servis, garantili işçilik. Klima ve kombi satışı, montaj dahil. ☎ {{ b.phone_display }}">
-  <meta name="theme-color" content="#F6FBFC">
-  <meta property="og:title" content="{{ b.name }} — Klima · Kombi · Beyaz Eşya">
-  <meta property="og:description" content="Denizli Pamukkale'de 7/24 tamir &amp; bakım. Aynı gün yerinde servis, garantili işçilik.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="tr_TR">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20x='2'%20y='2'%20width='60'%20height='60'%20rx='17'%20fill='%230A3E49'/%3E%3Ccircle%20cx='32'%20cy='31'%20r='13.5'%20fill='none'%20stroke='white'%20stroke-width='4.5'/%3E%3Ccircle%20cx='25.5'%20cy='13.5'%20r='2.6'%20fill='%238ADFE8'/%3E%3Ccircle%20cx='38.5'%20cy='13.5'%20r='2.6'%20fill='%238ADFE8'/%3E%3Cpath%20d='M14%2045.5c7-4%2014.5-4.2%2022.2-1.1%204.6%201.8%209%201.7%2013.8-.5'%20fill='none'%20stroke='%238ADFE8'%20stroke-width='3'%20stroke-linecap='round'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% extends "base.html" %}
+{% load static %}
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "HVACBusiness",
-    "name": "{{ b.name|escapejs }}",
-    "telephone": "{{ b.phone_e164 }}",
-    "url": "{{ request.scheme }}://{{ request.get_host }}{{ request.path }}",
-    "image": "{{ request.scheme }}://{{ request.get_host }}{% static hero_image.img %}",
-    "priceRange": "₺₺",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "15 Mayıs Mah., Gazi Mustafa Kemal Blv. No:105 D:15",
-      "addressLocality": "Pamukkale",
-      "addressRegion": "Denizli",
-      "addressCountry": "TR"
-    },
-    "areaServed": "Denizli",
-    "openingHoursSpecification": [{
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "opens": "00:00",
-      "closes": "23:59"
-    }],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "reviewCount": "{{ b.review_count }}"
-    }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {% for f in faq %}{
-        "@type": "Question",
-        "name": "{{ f.q|escapejs }}",
-        "acceptedAnswer": { "@type": "Answer", "text": "{{ f.a|escapejs }}" }
-      }{% if not forloop.last %},{% endif %}{% endfor %}
-    ]
-  }
-  </script>
-</head>
-<body>
+{% block title %}{{ b.name }} — Denizli Klima, Kombi ve Beyaz Eşya Servisi{% endblock %}
+{% block meta_description %}Denizli Pamukkale'de klima, kombi ve beyaz eşya tamir-bakım servisi. 7/24 ulaşım, aynı gün yerinde servis ve garantili işçilik.{% endblock %}
+{% block splash %}{% include "_splash.html" %}{% endblock %}
 
-  <!-- Açılış animasyonu (klima · serin hava) -->
-  <div id="splash" role="presentation">
-    <svg class="splash-air" viewBox="0 0 1200 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <path d="M-60 120 C 240 60, 420 180, 700 120 S 1000 60, 1260 120"></path>
-      <path d="M-60 180 C 260 120, 460 240, 720 180 S 1020 120, 1260 180"></path>
-      <path d="M-60 240 C 240 180, 440 300, 700 240 S 1010 180, 1260 240"></path>
-    </svg>
-    <span class="flake" style="--x:14%;--s:16px;--d:0s">&#10052;&#65038;</span>
-    <span class="flake" style="--x:31%;--s:11px;--d:.55s">&#10052;&#65038;</span>
-    <span class="flake" style="--x:52%;--s:21px;--d:.2s">&#10052;&#65038;</span>
-    <span class="flake" style="--x:69%;--s:13px;--d:.85s">&#10052;&#65038;</span>
-    <span class="flake" style="--x:86%;--s:17px;--d:.35s">&#10052;&#65038;</span>
-    <span class="flake" style="--x:61%;--s:10px;--d:1.15s">&#10052;&#65038;</span>
-    <div class="splash-core">
-      <span class="splash-badge">
-        <span class="splash-ring"></span>
-        <span class="splash-ring splash-ring-2"></span>
-        {% include "_logo.html" with size=78 %}
-      </span>
-      <span class="splash-name">ÖZDEMİR<br>TEKNİK SERVİS</span>
-      <span class="splash-tag">Klima · Kombi · Beyaz Eşya</span>
-    </div>
-  </div>
-
-  <!-- Üst bar -->
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand-icon" href="#top" aria-label="Özdemir Teknik Servis ana sayfa">
-        {% include "_logo.html" with size=40 %}
-      </a>
-      <a class="brand-wordmark" href="#top">
-        <span>ÖZDEMİR</span>
-        <small>TEKNİK SERVİS</small>
-      </a>
-      <button class="menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Menüyü aç">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <nav class="nav" id="primary-nav" aria-label="Ana menü">
-        <a href="#hizmetler">Hizmetler</a>
-        <a class="nav-process" href="#surec">Süreç</a>
-        <a href="#yorumlar">Yorumlar</a>
-        <a href="#iletisim">İletişim</a>
-        <a class="nav-request" href="#servis-talebi">Servis Talebi</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section id="top" class="hero">
-    <div class="hero-lines" data-parallax="-0.15"></div>
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <div class="badges reveal" data-reveal>
-          <span class="badge badge-light"><span class="stars">★★★★★</span> {{ b.rating }} · Google'da {{ b.review_count }} yorum</span>
-          <span class="badge badge-ghost"><span class="dot"></span> 24 saat açık</span>
-        </div>
-        <h1 class="reveal" data-reveal data-delay="120">
-          KLİMA · KOMBİ<br>BEYAZ EŞYA<br><span class="accent">TAMİR &amp; BAKIM</span>
-        </h1>
-        <p class="lead reveal" data-reveal data-delay="240">
-          Denizli Pamukkale'de yerinde servis. Arızanızı aynı gün çözüyoruz — klima ve kombi satışıyla birlikte montaj ve garanti bizden.
-        </p>
-        <div class="cta-row reveal" data-reveal data-delay="360">
-          <a class="btn btn-wa" href="{{ b.whatsapp_text }}" target="_blank" rel="noopener">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.4 0 .1 0 .6-.2 1.2z"></path></svg>
-            WhatsApp'tan Yaz</a>
-          <a class="btn btn-accent" href="tel:{{ b.phone_e164 }}">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"></path></svg>
-            {{ b.phone_display }}</a>
-        </div>
-        <ul class="hero-features reveal" data-reveal data-delay="440">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"></path></svg> Aynı gün servis</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg> 7/24 açık</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4.5"></path></svg> Garantili işçilik</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg> Tüm markalar</li>
-        </ul>
+{% block content %}
+<section id="top" class="hero">
+  <div class="hero-lines" data-parallax="-0.15"></div>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <div class="badges reveal" data-reveal>
+        <span class="badge badge-light"><span class="stars">★★★★★</span> {{ b.rating }} · Google'da {{ b.review_count }} yorum</span>
+        <span class="badge badge-ghost"><span class="dot"></span> 24 saat açık</span>
       </div>
-      <div class="hero-media reveal" data-reveal data-delay="300">
-        <div class="hero-photo">
-          <img src="{% static hero_image.img %}" alt="{{ hero_image.alt }}" width="1600" height="2213">
-          <span class="credit">Foto: {{ hero_image.credit }}</span>
-        </div>
-        <div class="float-card">
-          <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span>
-          <span><strong>Denizli geneli</strong><span class="sub">yerinde servis</span></span>
-        </div>
+      <h1 class="reveal" data-reveal data-delay="120">
+        KLİMA · KOMBİ<br>BEYAZ EŞYA<br><span class="accent">TAMİR &amp; BAKIM</span>
+      </h1>
+      <p class="lead reveal" data-reveal data-delay="240">
+        Denizli genelinde aynı gün yerinde servis. Arızayı tespit ediyor, işleme başlamadan fiyatı açıklıyor ve garantili teslim ediyoruz.
+      </p>
+      <div class="cta-row reveal" data-reveal data-delay="360">
+        <a class="btn btn-wa" href="{{ b.whatsapp_text }}" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.4 0 .1 0 .6-.2 1.2z"></path></svg>
+          WhatsApp'tan Yaz
+        </a>
+        <a class="btn btn-accent" href="tel:{{ b.phone_e164 }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"></path></svg>
+          {{ b.phone_display }}
+        </a>
+      </div>
+      <ul class="hero-features reveal" data-reveal data-delay="440">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"></path></svg>Aynı gün servis</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg>7/24 açık</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4.5"></path></svg>Garantili işçilik</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg>Tüm markalar</li>
+      </ul>
+    </div>
+    <div class="hero-media reveal" data-reveal data-delay="300">
+      <div class="hero-photo">
+        <img src="{% static hero_image.img %}" alt="{{ hero_image.alt }}" width="1600" height="2213">
+        <span class="credit">Foto: {{ hero_image.credit }}</span>
+      </div>
+      <div class="float-card">
+        <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span>
+        <span><strong>Denizli geneli</strong><span class="sub">yerinde servis</span></span>
       </div>
     </div>
-  </section>
-
-  <!-- Akış bandı -->
-  <div class="marquee">
-    <div class="marquee-track">
-      <span>KLİMA BAKIM ✦ KOMBİ TAMİR ✦ BEYAZ EŞYA SERVİSİ ✦ 7/24 AÇIK ✦ AYNI GÜN SERVİS ✦ KLİMA &amp; KOMBİ SATIŞI ✦&nbsp;</span>
-      <span>KLİMA BAKIM ✦ KOMBİ TAMİR ✦ BEYAZ EŞYA SERVİSİ ✦ 7/24 AÇIK ✦ AYNI GÜN SERVİS ✦ KLİMA &amp; KOMBİ SATIŞI ✦&nbsp;</span>
-    </div>
   </div>
+</section>
 
-  <!-- Güven şeridi (sayaçlar) -->
-  <div class="stats-band">
-    <div class="wrap stats-grid">
-      {% for st in stats %}
-      <div class="stat reveal" data-reveal data-delay="{% cycle '0' '80' '160' '240' %}">
-        <span class="stat-no" data-count="{{ st.value|stringformat:'f' }}" data-decimals="{{ st.decimals }}" data-prefix="{{ st.prefix }}" data-suffix="{{ st.suffix }}">{{ st.prefix }}0{{ st.suffix }}</span>
-        <span class="stat-label">{{ st.label }}</span>
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>KLİMA BAKIM ✦ KOMBİ TAMİR ✦ BEYAZ EŞYA SERVİSİ ✦ 7/24 AÇIK ✦ AYNI GÜN SERVİS ✦ KLİMA &amp; KOMBİ SATIŞI ✦&nbsp;</span>
+    <span>KLİMA BAKIM ✦ KOMBİ TAMİR ✦ BEYAZ EŞYA SERVİSİ ✦ 7/24 AÇIK ✦ AYNI GÜN SERVİS ✦ KLİMA &amp; KOMBİ SATIŞI ✦&nbsp;</span>
+  </div>
+</div>
+
+<div class="stats-band">
+  <div class="wrap stats-grid">
+    {% for st in stats %}
+    <div class="stat reveal" data-reveal data-delay="{% cycle '0' '80' '160' '240' %}">
+      <span class="stat-no" data-count="{{ st.value|stringformat:'f' }}" data-decimals="{{ st.decimals }}" data-prefix="{{ st.prefix }}" data-suffix="{{ st.suffix }}">{{ st.prefix }}0{{ st.suffix }}</span>
+      <span class="stat-label">{{ st.label }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<section class="section wrap">
+  <p class="eyebrow reveal" data-reveal>Hizmetlerimiz</p>
+  <div class="section-heading reveal" data-reveal data-delay="100">
+    <h2>İhtiyacınız olan<br>servise doğrudan ulaşın</h2>
+    <a class="text-link" href="{% url 'core:services' %}">Tüm hizmetleri görün →</a>
+  </div>
+  <div class="grid-auto">
+    {% for s in services %}
+    <a class="card service-card reveal" href="{% url 'core:service_detail' s.slug %}" data-reveal data-delay="{% cycle '0' '140' '280' %}">
+      <div class="icon">{% include "_service_icon.html" with icon=s.icon %}</div>
+      <h3>{{ s.title }}</h3>
+      <p>{{ s.desc }}</p>
+      <span class="card-link">Hizmeti incele →</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section-tight wrap">
+  <p class="eyebrow reveal" data-reveal>Nasıl çalışıyoruz?</p>
+  <h2 class="reveal" data-reveal data-delay="100">3 adımda<br>arızanız çözülsün</h2>
+  <div class="grid-auto">
+    {% for step in steps %}
+    <div class="step reveal" data-reveal data-delay="{% cycle '0' '140' '280' %}">
+      <span class="no">{{ step.no }}</span>
+      <h3>{{ step.title }}</h3>
+      <p>{{ step.desc }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section light rounded-top">
+  <div class="wrap">
+    <div class="reviews-head">
+      <h2 class="reveal" data-reveal>Müşterilerimiz<br>ne diyor?</h2>
+      <div class="score-card reveal" data-reveal data-delay="120">
+        <span class="big">{{ b.rating }}</span>
+        <small><span class="stars">★★★★★</span><br>Google'da {{ b.review_count }} yorum</small>
       </div>
-      {% endfor %}
     </div>
-  </div>
-
-  <!-- Hizmetler -->
-  <section id="hizmetler" class="section wrap">
-    <p class="eyebrow reveal" data-reveal>Hizmetlerimiz</p>
-    <h2 class="reveal" data-reveal data-delay="100">Tamir &amp; bakımda<br>tek adres</h2>
     <div class="grid-auto">
-      {% for s in services %}
-      <div class="card reveal" data-reveal data-delay="{% cycle '0' '140' '280' %}">
-        <div class="icon">
-          {% if s.icon == 'ac' %}<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="8" rx="2"></rect><path d="M7 17c0 1.5-1 2-1 3M12 17c0 1.5-1 2-1 3M17 17c0 1.5-1 2-1 3"></path></svg>
-          {% elif s.icon == 'flame' %}<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 3.5 5 6 5 9a5 5 0 0 1-10 0c0-3 2-5.5 5-9z"></path></svg>
-          {% elif s.icon == 'washer' %}<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><line x1="5" y1="8" x2="19" y2="8"></line><circle cx="12" cy="14.5" r="3.2"></circle></svg>{% endif %}
-        </div>
-        <h3>{{ s.title }}</h3>
-        <p>{{ s.desc }}</p>
-      </div>
+      {% for t in testimonials %}
+      <figure class="review reveal" data-reveal data-delay="{% cycle '0' '140' '280' %}">
+        <span class="stars">★★★★★</span>
+        <blockquote>“{{ t.text }}”</blockquote>
+        <figcaption>{{ t.name }}{% if t.tag %} <span class="role">· {{ t.tag }}</span>{% endif %}</figcaption>
+      </figure>
       {% endfor %}
     </div>
-    <div class="sales-grid reveal" data-reveal data-delay="120">
-      {% for sale in sales %}
-      <div class="sale {% if sale.highlight %}sale-hot{% else %}sale-plain{% endif %}">
-        <h3>{{ sale.title }}</h3>
-        <p>{{ sale.desc }}</p>
-      </div>
-      {% endfor %}
-    </div>
-  </section>
-
-  <!-- Süreç -->
-  <section id="surec" class="section-tight wrap">
-    <p class="eyebrow reveal" data-reveal>Süreç</p>
-    <h2 class="reveal" data-reveal data-delay="100">3 adımda<br>arızanız çözülsün</h2>
-    <div class="grid-auto">
-      {% for step in steps %}
-      <div class="step reveal" data-reveal data-delay="{% cycle '0' '140' '280' %}">
-        <span class="no">{{ step.no }}</span>
-        <h3>{{ step.title }}</h3>
-        <p>{{ step.desc }}</p>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="brands reveal" data-reveal data-delay="120">
-      <span class="label">Tüm markalara servis</span>
-      <span class="list">{{ brands }}</span>
-    </div>
-  </section>
-
-  <!-- Galeri -->
-  <section id="galeri" class="section-tight wrap">
-    <h2 class="reveal" data-reveal>İşimizden kareler</h2>
-    <div class="gallery">
-      {% for g in gallery %}
-      <div class="shot reveal" data-reveal data-delay="{% cycle '0' '120' '240' '360' %}">
-        <img src="{% static g.img %}" alt="{{ g.alt }}" width="800" height="600" loading="lazy">
-        <span class="credit">Foto: {{ g.credit }}</span>
-      </div>
-      {% endfor %}
-    </div>
-  </section>
-
-  <!-- Yorumlar -->
-  <section id="yorumlar" class="section light rounded-top">
-    <div class="wrap">
-      <div class="reviews-head">
-        <h2 class="reveal" data-reveal>Müşterilerimiz<br>ne diyor?</h2>
-        <div class="score-card reveal" data-reveal data-delay="120">
-          <span class="big">{{ b.rating }}</span>
-          <small><span class="stars">★★★★★</span><br>Google'da {{ b.review_count }} yorum</small>
-        </div>
-      </div>
-      <div class="grid-auto">
-        {% for t in testimonials %}
-        <figure class="review reveal" data-reveal data-delay="{% cycle '0' '140' '280' %}">
-          <span class="stars">★★★★★</span>
-          <blockquote>“{{ t.text }}”</blockquote>
-          <figcaption>{{ t.name }}{% if t.tag %} <span class="role">· {{ t.tag }}</span>{% endif %}</figcaption>
-        </figure>
-        {% endfor %}
-      </div>
-      <p class="reviews-link reveal" data-reveal><a href="{{ b.maps_search }}" target="_blank" rel="noopener">Tüm {{ b.review_count }} yorumu Google Haritalar'da okuyun →</a></p>
-    </div>
-  </section>
-
-  <!-- SSS -->
-  <section id="sss" class="section-tight light">
-    <div class="wrap">
-      <p class="eyebrow reveal" data-reveal>SSS</p>
-      <h2 class="reveal" data-reveal data-delay="100">Sık sorulan sorular</h2>
-      <div class="faq-list">
-        {% for f in faq %}
-        <details class="faq reveal" data-reveal data-delay="{% cycle '0' '100' '200' '300' %}">
-          <summary>{{ f.q }}<span class="plus">+</span></summary>
-          <p>{{ f.a }}</p>
-        </details>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-
-  <!-- Servis Talebi -->
-  <section id="servis-talebi" class="section-tight light">
-    <div class="wrap contact">
-      <div class="contact-info reveal" data-reveal>
-        <p class="eyebrow">Servis Talebi</p>
-        <h2>2 dakikada talep bırakın,<br>aynı gün dönelim</h2>
-        <p class="lead" style="color:var(--light-muted)">
-          Formu doldurun, arızanızı not edelim — size en kısa sürede biz ulaşırız.
-          Acil durumdaysanız doğrudan arayabilirsiniz.
-        </p>
-        <div class="contact-cta">
-          <a class="pill pill-dark" href="tel:{{ b.phone_e164 }}">Hemen Ara</a>
-        </div>
-      </div>
-      <div class="form-card reveal" data-reveal data-delay="140">
-        {% if talep_ok %}
-        <div class="form-success">
-          <span class="fs-ico">✓</span>
-          <h3>Talebiniz alındı</h3>
-          <p>En kısa sürede sizi arayacağız. Daha hızlı olsun isterseniz WhatsApp'tan da yazabilirsiniz.</p>
-          <a class="pill pill-wa" href="{{ b.whatsapp_text }}" target="_blank" rel="noopener">WhatsApp'tan hızlandır</a>
-        </div>
-        {% else %}
-        <form method="post" action="#servis-talebi" novalidate>
-          {% csrf_token %}
-          {{ form.website }}
-          <div class="f-row">
-            <label class="f-field">
-              <span>Ad Soyad</span>
-              {{ form.name }}
-              {% if form.name.errors %}<em class="f-err">{{ form.name.errors.0 }}</em>{% endif %}
-            </label>
-            <label class="f-field">
-              <span>Telefon</span>
-              {{ form.phone }}
-              {% if form.phone.errors %}<em class="f-err">{{ form.phone.errors.0 }}</em>{% endif %}
-            </label>
-          </div>
-          <label class="f-field">
-            <span>Cihaz</span>
-            {{ form.device }}
-          </label>
-          <label class="f-field">
-            <span>Arıza / Not</span>
-            {{ form.message }}
-          </label>
-          <button class="btn btn-wa f-submit" type="submit">Talep Gönder</button>
-        </form>
-        {% endif %}
-      </div>
-    </div>
-  </section>
-
-  <!-- İletişim -->
-  <section id="iletisim" class="section-tight light">
-    <div class="wrap contact">
-      <div class="contact-info reveal" data-reveal>
-        <h2>Arayın,<br>aynı gün gelelim</h2>
-        <div class="info-rows">
-          <div class="info-row"><strong>Adres</strong><span>{{ b.address }}</span></div>
-          <div class="info-row"><strong>Telefon</strong><a href="tel:{{ b.phone_e164 }}">{{ b.phone_display }}</a></div>
-          <div class="info-row"><strong>Saatler</strong><span><span class="dot"></span>{{ b.hours }}</span></div>
-        </div>
-        <div class="contact-cta">
-          <a class="pill pill-dark" href="{{ b.maps_directions }}" target="_blank" rel="noopener">Yol Tarifi Al</a>
-          <a class="pill pill-wa" href="{{ b.whatsapp_plain }}" target="_blank" rel="noopener">WhatsApp</a>
-        </div>
-      </div>
-      <div class="map reveal" data-reveal data-delay="140">
-        <iframe title="{{ b.name }} konumu" src="{{ b.maps_embed }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="wrap">
-      <span class="footer-brand">{% include "_logo.html" with size=22 %} ÖZDEMİR TEKNİK SERVİS</span>
-      <span>© {% now "Y" %} · {{ b.region }} · <a href="tel:{{ b.phone_e164 }}">{{ b.phone_display }}</a></span>
-    </div>
-  </footer>
-
-  <!-- Sabit alt bar -->
-  <div class="dockbar">
-    <a class="d-call" href="tel:{{ b.phone_e164 }}">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"></path></svg>
-      Hemen Ara</a>
-    <a class="d-wa" href="{{ b.whatsapp_text }}" target="_blank" rel="noopener">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.4 0 .1 0 .6-.2 1.2z"></path></svg>
-      WhatsApp</a>
+    <p class="reviews-link reveal" data-reveal><a href="{% url 'core:reviews' %}">Yorumların tamamını inceleyin →</a></p>
   </div>
+</section>
 
-  <script src="{% static 'js/main.js' %}" defer></script>
-</body>
-</html>
+<section class="section home-cta">
+  <div class="wrap cta-panel reveal" data-reveal>
+    <div>
+      <p class="eyebrow">Servis Talebi</p>
+      <h2>Arızayı anlatın,<br>aynı gün dönüş yapalım</h2>
+      <p>Form iki dakikadan kısa sürer. Acil durumlarda doğrudan arayabilirsiniz.</p>
+    </div>
+    <div class="cta-panel-actions">
+      <a class="btn btn-light" href="{% url 'core:service_request' %}">Talep Oluştur</a>
+      <a class="btn btn-outline-light" href="tel:{{ b.phone_e164 }}">{{ b.phone_display }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

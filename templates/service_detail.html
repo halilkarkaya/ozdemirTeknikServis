@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ service.eyebrow }} Denizli — {{ b.name }}{% endblock %}
+{% block meta_description %}{{ service.lead }}{% endblock %}
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "{{ service.title|escapejs }}",
+  "provider": {"@type": "HVACBusiness", "name": "{{ b.name|escapejs }}"},
+  "areaServed": "Denizli",
+  "description": "{{ service.lead|escapejs }}"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero detail-hero">
+  <div class="wrap detail-hero-grid">
+    <div>
+      <nav class="breadcrumb" aria-label="Sayfa yolu">
+        <a href="{% url 'core:services' %}">Hizmetler</a><span>→</span><span>{{ service.eyebrow }}</span>
+      </nav>
+      <p class="eyebrow reveal" data-reveal>{{ service.eyebrow }}</p>
+      <h1 class="reveal" data-reveal data-delay="80">{{ service.headline }}</h1>
+      <p class="page-lead reveal" data-reveal data-delay="160">{{ service.lead }}</p>
+      <div class="page-actions reveal" data-reveal data-delay="240">
+        <a class="btn btn-wa" href="{% url 'core:service_request' %}">Servis Talebi Oluştur</a>
+        <a class="btn btn-accent" href="tel:{{ b.phone_e164 }}">Hemen Ara</a>
+      </div>
+    </div>
+    <div class="detail-image reveal" data-reveal data-delay="160">
+      <img src="{% static service.image %}" alt="{{ service.image_alt }}" width="800" height="600">
+    </div>
+  </div>
+</section>
+
+<section class="section wrap detail-section">
+  <div class="detail-columns">
+    <div>
+      <p class="eyebrow reveal" data-reveal>Hizmet kapsamı</p>
+      <h2 class="reveal" data-reveal data-delay="80">Kontrollü, açıklanabilir<br>ve garantili işlem</h2>
+      <ul class="check-list reveal" data-reveal data-delay="140">
+        {% for item in service.features %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+    </div>
+    <aside class="issue-panel reveal" data-reveal data-delay="180">
+      <span class="panel-label">Ne zaman servis çağırmalısınız?</span>
+      <ul>
+        {% for item in service.issues %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+      <a href="{% url 'core:service_request' %}">Arızayı bize anlatın →</a>
+    </aside>
+  </div>
+</section>
+
+<section class="section light">
+  <div class="wrap">
+    <p class="eyebrow reveal" data-reveal>{{ service.eyebrow }} SSS</p>
+    <h2 class="reveal" data-reveal data-delay="80">Sık sorulan sorular</h2>
+    <div class="faq-list">
+      {% for f in service.faq %}
+      <details class="faq reveal" data-reveal data-delay="{% cycle '0' '100' %}">
+        <summary>{{ f.q }}<span class="plus">+</span></summary>
+        <p>{{ f.a }}</p>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap cta-panel reveal" data-reveal>
+    <div>
+      <p class="eyebrow">Denizli geneli yerinde servis</p>
+      <h2>Uygun zamanı seçin,<br>gerisini bize bırakın</h2>
+    </div>
+    <div class="cta-panel-actions">
+      <a class="btn btn-light" href="{% url 'core:service_request' %}">Talep Oluştur</a>
+      <a class="btn btn-outline-light" href="{{ b.whatsapp_text }}" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

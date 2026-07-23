@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Servis Talebi — {{ b.name }}{% endblock %}
+{% block meta_description %}Klima, kombi veya beyaz eşya arızanız için çevrimiçi servis talebi oluşturun; aynı gün dönüş yapalım.{% endblock %}
+
+{% block content %}
+<section class="page-hero request-page-hero">
+  <div class="wrap page-hero-inner">
+    <p class="eyebrow reveal" data-reveal>Servis Talebi</p>
+    <h1 class="reveal" data-reveal data-delay="80">Arızayı kısaca anlatın,<br><span>aynı gün dönüş yapalım</span></h1>
+    <p class="page-lead reveal" data-reveal data-delay="160">Form iki dakikadan kısa sürer. Bilgileriniz yalnızca servis dönüşü için kullanılır.</p>
+  </div>
+</section>
+
+<section class="section wrap page-section-first">
+  <div class="contact request-layout">
+    <div class="contact-info reveal" data-reveal>
+      <p class="eyebrow">Hızlı iletişim</p>
+      <h2>Acil durumlarda<br>doğrudan ulaşın</h2>
+      <p class="lead">Telefon ve WhatsApp hattımız 7/24 açıktır. Denizli genelinde uygun ekibi yönlendiriyoruz.</p>
+      <div class="contact-cta">
+        <a class="pill pill-dark" href="tel:{{ b.phone_e164 }}">{{ b.phone_display }}</a>
+        <a class="pill pill-wa" href="{{ b.whatsapp_text }}" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <ul class="request-promises">
+        <li>İşlem öncesi net fiyat</li>
+        <li>Aynı gün geri dönüş</li>
+        <li>Garantili işçilik</li>
+      </ul>
+    </div>
+    <div class="form-card reveal" data-reveal data-delay="120">
+      {% include "_request_form.html" %}
+    </div>
+  </div>
+</section>
+{% endblock %}

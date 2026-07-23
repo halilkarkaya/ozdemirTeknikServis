@@ -1,11 +1,7 @@
-"""
-Tek sayfalık tanıtım sitesinin görünümü (view).
-
-Sitenin tüm metin içeriği burada, tek yerde toplanmıştır; şablon (index.html)
-bu verileri döngülerle basar. Böylece hizmet, yorum, SSS gibi içerikleri
-düzenlemek için HTML'e dokunmanıza gerek kalmaz — sadece bu dosyayı düzenleyin.
-"""
+"""Özdemir Teknik Servis sayfaları ve ortak içerik verileri."""
+from django.http import Http404
 from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from .forms import ServiceRequestForm
 
@@ -45,18 +41,21 @@ BUSINESS["maps_search"] = (
 SERVICES = [
     {
         "icon": "ac",
+        "slug": "klima-servisi",
         "title": "Klima Bakım & Tamir",
         "desc": "Periyodik bakım, gaz dolumu, derin temizlik ve arıza onarımı. "
                 "Montaj ve sökme-takma dahil.",
     },
     {
         "icon": "flame",
+        "slug": "kombi-servisi",
         "title": "Kombi Bakım & Tamir",
         "desc": "Tüm markalarda yıllık bakım, petek temizliği, sıcak su ve basınç "
                 "arızaları. Aynı gün servis.",
     },
     {
         "icon": "washer",
+        "slug": "beyaz-esya-servisi",
         "title": "Beyaz Eşya Tamir & Bakım",
         "desc": "Çamaşır ve bulaşık makinesi, buzdolabı, fırın arızaları. "
                 "Orijinal parça, işçilik garantili.",
@@ -175,6 +174,111 @@ FAQ = [
     },
 ]
 
+SERVICE_DETAILS = {
+    "klima-servisi": {
+        "eyebrow": "Klima Servisi",
+        "headline": "Klimanız daha sessiz, temiz ve verimli çalışsın",
+        "lead": (
+            "Denizli genelinde split klima bakım, arıza tespiti, gaz dolumu, "
+            "derin temizlik, montaj ve sökme-takma hizmeti."
+        ),
+        "features": [
+            "İç ve dış ünite detaylı temizlik",
+            "Gaz basıncı ve kaçak kontrolü",
+            "Elektrik bağlantıları ve drenaj testi",
+            "Montaj, sökme ve yer değişikliği",
+            "Tüm markalarda arıza tespiti",
+            "İşçilik ve değişen parça garantisi",
+        ],
+        "issues": [
+            "Yeterince soğutmuyor veya ısıtmıyor",
+            "Su akıtıyor ya da kötü koku yapıyor",
+            "Yüksek sesle çalışıyor",
+            "Sık sık kapanıyor veya hata kodu veriyor",
+        ],
+        "faq": [
+            {
+                "q": "Klima bakımı ne sıklıkla yapılmalı?",
+                "a": "Ev tipi klimalarda yılda en az bir kez, yoğun kullanılan cihazlarda sezon öncesi ve sonrası bakım öneriyoruz.",
+            },
+            {
+                "q": "Klima gazı her bakımda doldurulur mu?",
+                "a": "Hayır. Gaz seviyesi ölçülür; eksilme varsa önce kaçak kontrolü yapılır, ardından ihtiyaç kadar dolum uygulanır.",
+            },
+        ],
+        "image": "img/galeri-klima.jpg",
+        "image_alt": "Duvar tipi split klima bakım hizmeti",
+    },
+    "kombi-servisi": {
+        "eyebrow": "Kombi Servisi",
+        "headline": "Sıcak su ve ısınma sorunlarını aynı gün çözelim",
+        "lead": (
+            "Kombi yıllık bakımı, petek temizliği, basınç ve sıcak su arızaları "
+            "için Denizli genelinde yerinde teknik servis."
+        ),
+        "features": [
+            "Yanma odası ve eşanjör temizliği",
+            "Genleşme tankı ve basınç kontrolü",
+            "Sıcak su ve kalorifer devresi testi",
+            "Petek ve tesisat temizliği",
+            "Parça değişiminden önce net fiyat",
+            "Garantili işçilik",
+        ],
+        "issues": [
+            "Sıcak su gelmiyor veya dalgalanıyor",
+            "Kombi basıncı sürekli düşüyor",
+            "Petekler eşit ısınmıyor",
+            "Cihaz ses yapıyor veya hata kodu veriyor",
+        ],
+        "faq": [
+            {
+                "q": "Kombi bakımı ne zaman yapılmalı?",
+                "a": "Yılda bir kez, tercihen kış sezonu başlamadan önce yapılması cihazın güvenli ve verimli çalışmasına yardımcı olur.",
+            },
+            {
+                "q": "Petek temizliği her yıl gerekli mi?",
+                "a": "Her yıl şart değildir. Isınma dengesizliği, alt kısımların soğuk kalması veya yüksek tüketim varsa kontrol edilmelidir.",
+            },
+        ],
+        "image": "img/galeri-kombi.jpg",
+        "image_alt": "Kombi ve tesisat bakım hizmeti",
+    },
+    "beyaz-esya-servisi": {
+        "eyebrow": "Beyaz Eşya Servisi",
+        "headline": "Günlük hayatı durduran arızaları hızlıca giderelim",
+        "lead": (
+            "Çamaşır ve bulaşık makinesi, buzdolabı ve fırın arızalarında "
+            "yerinde tespit, onarım ve garantili parça değişimi."
+        ),
+        "features": [
+            "Yerinde arıza tespiti",
+            "Onay öncesi net fiyat bilgisi",
+            "Uygun ve garantili parça kullanımı",
+            "Su alma ve tahliye sorunları",
+            "Soğutma ve ısıtma arızaları",
+            "İşlem sonrası çalışma testi",
+        ],
+        "issues": [
+            "Makine su almıyor veya boşaltmıyor",
+            "Buzdolabı yeterince soğutmuyor",
+            "Fırın ısıtmıyor veya sigorta attırıyor",
+            "Cihaz ses yapıyor ya da programı tamamlamıyor",
+        ],
+        "faq": [
+            {
+                "q": "Arıza evde tamir edilebilir mi?",
+                "a": "Arızaların büyük bölümü yerinde giderilir. Atölye işlemi gerekirse cihazın durumu ve süreç önceden açıklanır.",
+            },
+            {
+                "q": "Değişen parçaya garanti veriliyor mu?",
+                "a": "Evet. Kullanılan parça ve yapılan işçilik için işlem türüne göre garanti bilgisi teslim sırasında paylaşılır.",
+            },
+        ],
+        "image": "img/galeri-beyaz-esya.jpg",
+        "image_alt": "Beyaz eşya bakım ve onarım hizmeti",
+    },
+}
+
 HERO_IMAGE = {
     "img": "img/hero-klima-salon.jpg",
     "alt": "Modern aydınlık salonda panel üzerine monte duvar tipi split klima",
@@ -182,20 +286,7 @@ HERO_IMAGE = {
 }
 
 
-def index(request):
-    if request.method == "POST":
-        form = ServiceRequestForm(request.POST)
-        if form.is_valid():
-            if not form.is_spam():
-                form.save()
-            # Bot da olsa gerçek kullanıcı da olsa aynı başarı yanıtını ver
-            # (spam'e "engellendin" sinyali vermemek için) ve formu tekrar
-            # göndermeyi önlemek için (PRG deseni) yönlendir.
-            return redirect("/?talep=ok#servis-talebi")
-        # Geçersiz: formu hatalarla birlikte yeniden göster.
-    else:
-        form = ServiceRequestForm()
-
+def _site_context(active_page="", **extra):
     context = {
         "b": BUSINESS,
         "services": SERVICES,
@@ -207,7 +298,61 @@ def index(request):
         "hero_image": HERO_IMAGE,
         "testimonials": TESTIMONIALS,
         "faq": FAQ,
-        "form": form,
-        "talep_ok": request.GET.get("talep") == "ok",
+        "active_page": active_page,
     }
-    return render(request, "index.html", context)
+    context.update(extra)
+    return context
+
+
+def index(request):
+    # Eski ana sayfa formuna gönderilen kayıtları yeni form sayfasına yönlendir.
+    if request.method == "POST":
+        return service_request(request)
+    return render(request, "index.html", _site_context("home"))
+
+
+def services_page(request):
+    return render(request, "services.html", _site_context("services"))
+
+
+def service_detail(request, slug):
+    summary = next((item for item in SERVICES if item["slug"] == slug), None)
+    detail = SERVICE_DETAILS.get(slug)
+    if summary is None or detail is None:
+        raise Http404("Hizmet bulunamadı")
+    service = {**summary, **detail}
+    return render(
+        request,
+        "service_detail.html",
+        _site_context("services", service=service),
+    )
+
+
+def works(request):
+    return render(request, "works.html", _site_context("works"))
+
+
+def reviews(request):
+    return render(request, "reviews.html", _site_context("reviews"))
+
+
+def service_request(request):
+    form = ServiceRequestForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        if not form.is_spam():
+            form.save()
+        return redirect(f"{reverse('core:service_request')}?talep=ok")
+
+    return render(
+        request,
+        "service_request.html",
+        _site_context(
+            "request",
+            form=form,
+            talep_ok=request.GET.get("talep") == "ok",
+        ),
+    )
+
+
+def contact(request):
+    return render(request, "contact.html", _site_context("contact"))

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Hizmetlerimiz — {{ b.name }}{% endblock %}
+{% block meta_description %}Denizli klima servisi, kombi bakımı, beyaz eşya tamiri, klima ve kombi satış-montaj hizmetleri.{% endblock %}
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for f in faq %}{
+      "@type": "Question",
+      "name": "{{ f.q|escapejs }}",
+      "acceptedAnswer": {"@type": "Answer", "text": "{{ f.a|escapejs }}"}
+    }{% if not forloop.last %},{% endif %}{% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap page-hero-inner">
+    <p class="eyebrow reveal" data-reveal>Hizmetlerimiz</p>
+    <h1 class="reveal" data-reveal data-delay="80">Cihazınıza doğru bakım,<br><span>arızanıza net çözüm</span></h1>
+    <p class="page-lead reveal" data-reveal data-delay="160">Klima, kombi ve beyaz eşya servisinde yerinde tespit, işlem öncesi fiyat bilgisi ve garantili teslim.</p>
+    <div class="page-actions reveal" data-reveal data-delay="240">
+      <a class="btn btn-wa" href="{% url 'core:service_request' %}">Servis Talebi Oluştur</a>
+      <a class="btn btn-accent" href="tel:{{ b.phone_e164 }}">{{ b.phone_display }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap page-section-first">
+  <div class="grid-auto">
+    {% for s in services %}
+    <a class="card service-card reveal" href="{% url 'core:service_detail' s.slug %}" data-reveal data-delay="{% cycle '0' '120' '240' %}">
+      <div class="icon">{% include "_service_icon.html" with icon=s.icon %}</div>
+      <h2>{{ s.title }}</h2>
+      <p>{{ s.desc }}</p>
+      <span class="card-link">Detayları incele →</span>
+    </a>
+    {% endfor %}
+  </div>
+
+  <div class="sales-grid reveal" data-reveal data-delay="120">
+    {% for sale in sales %}
+    <div class="sale {% if sale.highlight %}sale-hot{% else %}sale-plain{% endif %}">
+      <span class="sale-label">Satış &amp; Montaj</span>
+      <h3>{{ sale.title }}</h3>
+      <p>{{ sale.desc }}</p>
+      <a href="{% url 'core:service_request' %}">Bilgi ve keşif talebi →</a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="brands reveal" data-reveal data-delay="120">
+    <span class="label">Tüm markalara servis</span>
+    <span class="list">{{ brands }}</span>
+  </div>
+</section>
+
+<section class="section light">
+  <div class="wrap">
+    <p class="eyebrow reveal" data-reveal>Merak edilenler</p>
+    <h2 class="reveal" data-reveal data-delay="80">Servis öncesi<br>bilmeniz gerekenler</h2>
+    <div class="faq-list">
+      {% for f in faq %}
+      <details class="faq reveal" data-reveal data-delay="{% cycle '0' '80' '160' '240' %}">
+        <summary>{{ f.q }}<span class="plus">+</span></summary>
+        <p>{{ f.a }}</p>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

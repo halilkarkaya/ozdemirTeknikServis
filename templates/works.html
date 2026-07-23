@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Çalışmalarımız — {{ b.name }}{% endblock %}
+{% block meta_description %}Özdemir Teknik Servis klima, kombi ve beyaz eşya bakım-onarım çalışmalarından örnekler.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap page-hero-inner">
+    <p class="eyebrow reveal" data-reveal>Çalışmalarımız</p>
+    <h1 class="reveal" data-reveal data-delay="80">Temiz işçilik,<br><span>çalışır teslim</span></h1>
+    <p class="page-lead reveal" data-reveal data-delay="160">Bakım ve onarımda cihaz kadar çalışma alanına da özen gösteriyor, işlem sonunda gerekli testleri tamamlıyoruz.</p>
+  </div>
+</section>
+
+<section class="section wrap page-section-first">
+  <div class="gallery gallery-large">
+    {% for g in gallery %}
+    <figure class="shot work-shot reveal" data-reveal data-delay="{% cycle '0' '100' '200' '300' %}">
+      <img src="{% static g.img %}" alt="{{ g.alt }}" width="800" height="600" loading="lazy">
+      <span class="credit">Foto: {{ g.credit }}</span>
+      <figcaption>{{ g.alt }}</figcaption>
+    </figure>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section light">
+  <div class="wrap">
+    <p class="eyebrow reveal" data-reveal>Çalışma standardımız</p>
+    <h2 class="reveal" data-reveal data-delay="80">Her işlemde aynı<br>temel prensipler</h2>
+    <div class="grid-auto">
+      <div class="step reveal" data-reveal><span class="no">01</span><h3>Önce tespit</h3><p>Parça değiştirmeden önce arızanın kaynağını kontrol ederiz.</p></div>
+      <div class="step reveal" data-reveal data-delay="120"><span class="no">02</span><h3>Sonra onay</h3><p>Yapılacak işlemi ve fiyatı açıklamadan çalışmaya başlamayız.</p></div>
+      <div class="step reveal" data-reveal data-delay="240"><span class="no">03</span><h3>Test ederek teslim</h3><p>Cihazı çalıştırır, sonucu kontrol eder ve alanı düzenli bırakırız.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap cta-panel reveal" data-reveal>
+    <div><p class="eyebrow">Sıradaki çözüm sizin olsun</p><h2>Servis ihtiyacınızı<br>iki dakikada iletin</h2></div>
+    <div class="cta-panel-actions"><a class="btn btn-light" href="{% url 'core:service_request' %}">Talep Oluştur</a></div>
+  </div>
+</section>
+{% endblock %}

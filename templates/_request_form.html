@@ -1,0 +1,34 @@
+{% if talep_ok %}
+<div class="form-success">
+  <span class="fs-ico">✓</span>
+  <h3>Talebiniz alındı</h3>
+  <p>En kısa sürede sizi arayacağız. Acil durumlarda WhatsApp üzerinden de ulaşabilirsiniz.</p>
+  <a class="pill pill-wa" href="{{ b.whatsapp_text }}" target="_blank" rel="noopener">WhatsApp'tan yaz</a>
+</div>
+{% else %}
+<form method="post" action="{% url 'core:service_request' %}" novalidate>
+  {% csrf_token %}
+  {{ form.website }}
+  <div class="f-row">
+    <label class="f-field">
+      <span>Ad Soyad</span>
+      {{ form.name }}
+      {% if form.name.errors %}<em class="f-err">{{ form.name.errors.0 }}</em>{% endif %}
+    </label>
+    <label class="f-field">
+      <span>Telefon</span>
+      {{ form.phone }}
+      {% if form.phone.errors %}<em class="f-err">{{ form.phone.errors.0 }}</em>{% endif %}
+    </label>
+  </div>
+  <label class="f-field">
+    <span>Cihaz</span>
+    {{ form.device }}
+  </label>
+  <label class="f-field">
+    <span>Arıza / Not</span>
+    {{ form.message }}
+  </label>
+  <button class="btn btn-wa f-submit" type="submit">Talep Gönder</button>
+</form>
+{% endif %}
