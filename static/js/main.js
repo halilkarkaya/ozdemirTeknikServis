@@ -26,6 +26,42 @@
     splash.addEventListener("click", killSplash);
   }
 
+  // Mobil üst menü
+  var topbar = document.querySelector(".topbar");
+  var menuToggle = document.querySelector(".menu-toggle");
+  var primaryNav = document.getElementById("primary-nav");
+
+  if (topbar && menuToggle && primaryNav) {
+    var setMenu = function (open) {
+      topbar.classList.toggle("is-menu-open", open);
+      menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      menuToggle.setAttribute("aria-label", open ? "Menüyü kapat" : "Menüyü aç");
+    };
+
+    menuToggle.addEventListener("click", function () {
+      setMenu(!topbar.classList.contains("is-menu-open"));
+    });
+
+    primaryNav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () { setMenu(false); });
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!topbar.contains(event.target)) setMenu(false);
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        setMenu(false);
+        menuToggle.focus();
+      }
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 560) setMenu(false);
+    });
+  }
+
   // Kaydırınca beliren öğeler
   var revealEls = document.querySelectorAll("[data-reveal]");
   if ("IntersectionObserver" in window && revealEls.length) {

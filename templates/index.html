@@ -10,7 +10,7 @@
   <meta property="og:description" content="Denizli Pamukkale'de 7/24 tamir &amp; bakım. Aynı gün yerinde servis, garantili işçilik.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="tr_TR">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20120%20120'%3E%3Crect%20width='120'%20height='120'%20rx='26'%20fill='%2379D9E5'/%3E%3Cpolygon%20points='60,42%2085.98,57%2085.98,87%2060,102%2034.02,87%2034.02,57'%20fill='%2314181D'/%3E%3Ccircle%20cx='60'%20cy='72'%20r='15'%20fill='%2379D9E5'/%3E%3Ccircle%20cx='46'%20cy='24'%20r='7'%20fill='%2314181D'/%3E%3Ccircle%20cx='74'%20cy='24'%20r='7'%20fill='%2314181D'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20x='2'%20y='2'%20width='60'%20height='60'%20rx='17'%20fill='%230A3E49'/%3E%3Ccircle%20cx='32'%20cy='31'%20r='13.5'%20fill='none'%20stroke='white'%20stroke-width='4.5'/%3E%3Ccircle%20cx='25.5'%20cy='13.5'%20r='2.6'%20fill='%2379D9E5'/%3E%3Ccircle%20cx='38.5'%20cy='13.5'%20r='2.6'%20fill='%2379D9E5'/%3E%3Cpath%20d='M14%2045.5c7-4%2014.5-4.2%2022.2-1.1%204.6%201.8%209%201.7%2013.8-.5'%20fill='none'%20stroke='%2379D9E5'%20stroke-width='3'%20stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
@@ -88,17 +88,24 @@
 
   <!-- Üst bar -->
   <header class="topbar">
-    <a class="brand" href="#top">
-      {% include "_logo.html" with size=34 %}
-      <span class="brand-name">ÖZDEMİR<br>TEKNİK SERVİS</span>
+    <a class="brand-icon" href="#top" aria-label="Özdemir Teknik Servis ana sayfa">
+      {% include "_logo.html" with size=40 %}
     </a>
-    <a class="mobile-request" href="#servis-talebi">Talep Oluştur</a>
-    <nav class="nav">
+    <a class="brand-wordmark" href="#top">
+      <span>ÖZDEMİR</span>
+      <small>TEKNİK SERVİS</small>
+    </a>
+    <button class="menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Menüyü aç">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="nav" id="primary-nav" aria-label="Ana menü">
       <a href="#hizmetler">Hizmetler</a>
       <a class="nav-process" href="#surec">Süreç</a>
       <a href="#yorumlar">Yorumlar</a>
-      <a class="nav-request" href="#servis-talebi">Servis Talebi</a>
       <a href="#iletisim">İletişim</a>
+      <a class="nav-request" href="#servis-talebi">Servis Talebi</a>
     </nav>
   </header>
 

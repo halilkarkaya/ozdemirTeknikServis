@@ -65,55 +65,103 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
 /* ── Üst bar ─────────────────────────────────────────────────────────────── */
 .topbar {
   position: fixed; inset: 0 0 auto 0; z-index: 50;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 14px clamp(16px, 4vw, 48px);
-  background: linear-gradient(rgba(255,255,255,.94), rgba(255,255,255,0));
-  backdrop-filter: blur(6px);
+  min-height: 72px;
+  display: grid; grid-template-columns: auto auto minmax(0, 1fr); align-items: center; gap: 10px;
+  padding: 10px clamp(16px, 4vw, 48px);
+  background: rgba(255,255,255,.94);
+  border-bottom: 1px solid rgba(10,62,73,.10);
+  box-shadow: 0 8px 30px rgba(10,62,73,.06);
+  backdrop-filter: blur(12px);
 }
-.brand { display: flex; align-items: center; gap: 10px; color: var(--light-ink); }
-.brand svg { flex: none; display: block; }
-.brand-name {
-  font-family: var(--font-display); font-weight: 600; font-size: 14px;
-  letter-spacing: .08em; line-height: 1.15;
+.brand-icon {
+  display: grid; place-items: center; color: inherit;
+  border-radius: 13px;
 }
-.nav { display: flex; gap: 22px; font-size: 14px; font-weight: 600; }
+.brand-icon:hover { color: inherit; }
+.brand-icon .logo-mark {
+  display: block; flex: none;
+  filter: drop-shadow(0 5px 9px rgba(10,62,73,.14));
+}
+.brand-wordmark {
+  display: flex; flex-direction: column; align-items: flex-start;
+  color: #0A3E49; line-height: 1; white-space: nowrap;
+}
+.brand-wordmark:hover { color: #0A3E49; }
+.brand-wordmark span {
+  font-family: var(--font-display); font-weight: 700; font-size: 16px;
+  letter-spacing: .075em;
+}
+.brand-wordmark small {
+  margin-top: 4px;
+  font-family: var(--font-body); font-weight: 700; font-size: 8px;
+  letter-spacing: .24em;
+}
+.nav { display: flex; justify-content: flex-end; align-items: center; gap: 22px; font-size: 14px; font-weight: 600; }
 .nav a { color: var(--muted); }
 .nav a:hover { color: var(--light-ink); }
 .nav-process { display: none; }
-.mobile-request {
-  display: none; align-items: center; justify-content: center;
-  min-height: 42px; padding: 10px 17px; border-radius: 999px;
-  background: var(--light-ink); color: #fff;
-  font-size: 13px; font-weight: 700; white-space: nowrap;
-  box-shadow: 0 8px 22px rgba(20,24,29,.16);
-  transition: transform .2s ease, background .2s ease;
+.nav .nav-request {
+  padding: 10px 16px; border-radius: 999px;
+  background: #0A3E49; color: #fff;
+  box-shadow: 0 7px 18px rgba(10,62,73,.16);
 }
-.mobile-request:hover { background: #000; color: #fff; transform: translateY(-1px); }
+.nav .nav-request:hover { background: #062D35; color: #fff; }
+.menu-toggle {
+  display: none;
+  width: 42px; height: 42px; padding: 10px;
+  border: 0; border-radius: 12px; background: transparent;
+  color: #0A3E49; cursor: pointer;
+}
+.menu-toggle span {
+  display: block; width: 21px; height: 2px; margin: 4px auto;
+  border-radius: 999px; background: currentColor;
+  transition: transform .24s ease, opacity .18s ease;
+}
 @media (max-width: 560px) {
   .topbar {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 10px 12px;
-    padding: 10px 14px 9px;
-    background: rgba(255,255,255,.96);
-    border-bottom: 1px solid rgba(20,24,29,.08);
+    min-height: 64px;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 0;
+    padding: 8px 12px;
+    background: rgba(248,252,253,.97);
   }
+  .brand-icon { grid-column: 1; justify-self: start; }
+  .brand-icon .logo-mark { width: 40px; height: 40px; }
+  .brand-wordmark { grid-column: 2; align-items: center; justify-self: center; }
+  .brand-wordmark span { font-size: 15px; letter-spacing: .08em; }
+  .brand-wordmark small { font-size: 7.5px; letter-spacing: .22em; }
+  .menu-toggle { display: block; grid-column: 3; justify-self: end; }
   .nav {
-    grid-column: 1 / -1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    width: 100%;
-    padding-top: 9px;
-    border-top: 1px solid rgba(20,24,29,.08);
-    font-size: 11.5px;
+    position: absolute; top: calc(100% + 8px); left: 12px; right: 12px;
+    display: flex; flex-direction: column; align-items: stretch; gap: 4px;
+    padding: 10px;
+    border: 1px solid rgba(10,62,73,.12); border-radius: 18px;
+    background: rgba(255,255,255,.98);
+    box-shadow: 0 20px 48px rgba(10,62,73,.16);
+    backdrop-filter: blur(16px);
+    font-size: 14px;
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transform: translateY(-8px) scale(.98);
+    transform-origin: top right;
+    transition: opacity .2s ease, transform .2s ease, visibility .2s;
   }
-  .nav a { white-space: nowrap; }
+  .nav a {
+    display: flex; align-items: center; min-height: 44px;
+    padding: 10px 12px; border-radius: 11px; white-space: nowrap;
+  }
+  .nav a:hover { background: #EEF8FA; color: #0A3E49; }
   .nav-process { display: inline; }
-  .nav-request { display: none; }
-  .mobile-request { display: inline-flex; }
-  .brand-name { font-size: 12px; }
+  .nav .nav-request {
+    justify-content: center; margin-top: 4px;
+    background: #0A3E49; color: #fff;
+  }
+  .topbar.is-menu-open .nav {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+  .topbar.is-menu-open .menu-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .topbar.is-menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
+  .topbar.is-menu-open .menu-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 }
 
 /* ── Hero ────────────────────────────────────────────────────────────────── */
@@ -421,7 +469,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
 .form-success p { margin: 0; color: var(--light-muted); font-size: 15px; line-height: 1.6; }
 #servis-talebi { scroll-margin-top: 82px; }
 @media (max-width: 560px) {
-  #hizmetler, #surec, #yorumlar, #servis-talebi, #iletisim { scroll-margin-top: 112px; }
+  #hizmetler, #surec, #yorumlar, #servis-talebi, #iletisim { scroll-margin-top: 76px; }
 }
 
 /* ── İletişim ────────────────────────────────────────────────────────────── */
