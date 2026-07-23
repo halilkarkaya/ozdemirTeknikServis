@@ -2,6 +2,30 @@
 (function () {
   "use strict";
 
+  // Açılış animasyonu: erken kapatma + bitince DOM'dan temizle
+  var splash = document.getElementById("splash");
+  if (splash) {
+    var removeSplash = function () {
+      if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+    };
+    var killSplash = function () {
+      splash.classList.add("is-hiding");
+      window.removeEventListener("scroll", killSplash);
+      window.removeEventListener("wheel", killSplash);
+      window.removeEventListener("touchstart", killSplash);
+      window.removeEventListener("keydown", killSplash);
+      splash.removeEventListener("click", killSplash);
+      setTimeout(removeSplash, 450);
+    };
+    // Doğal bitişte de kaldır (animasyon ~3.05s'de biter)
+    setTimeout(removeSplash, 3300);
+    window.addEventListener("scroll", killSplash, { passive: true });
+    window.addEventListener("wheel", killSplash, { passive: true });
+    window.addEventListener("touchstart", killSplash, { passive: true });
+    window.addEventListener("keydown", killSplash);
+    splash.addEventListener("click", killSplash);
+  }
+
   // Kaydırınca beliren öğeler
   var revealEls = document.querySelectorAll("[data-reveal]");
   if ("IntersectionObserver" in window && revealEls.length) {

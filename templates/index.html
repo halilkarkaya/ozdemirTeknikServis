@@ -62,6 +62,30 @@
 </head>
 <body>
 
+  <!-- Açılış animasyonu (klima · serin hava) -->
+  <div id="splash" role="presentation">
+    <svg class="splash-air" viewBox="0 0 1200 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path d="M-60 120 C 240 60, 420 180, 700 120 S 1000 60, 1260 120"></path>
+      <path d="M-60 180 C 260 120, 460 240, 720 180 S 1020 120, 1260 180"></path>
+      <path d="M-60 240 C 240 180, 440 300, 700 240 S 1010 180, 1260 240"></path>
+    </svg>
+    <span class="flake" style="--x:14%;--s:16px;--d:0s">&#10052;&#65038;</span>
+    <span class="flake" style="--x:31%;--s:11px;--d:.55s">&#10052;&#65038;</span>
+    <span class="flake" style="--x:52%;--s:21px;--d:.2s">&#10052;&#65038;</span>
+    <span class="flake" style="--x:69%;--s:13px;--d:.85s">&#10052;&#65038;</span>
+    <span class="flake" style="--x:86%;--s:17px;--d:.35s">&#10052;&#65038;</span>
+    <span class="flake" style="--x:61%;--s:10px;--d:1.15s">&#10052;&#65038;</span>
+    <div class="splash-core">
+      <span class="splash-badge">
+        <span class="splash-ring"></span>
+        <span class="splash-ring splash-ring-2"></span>
+        {% include "_logo.html" with size=78 %}
+      </span>
+      <span class="splash-name">ÖZDEMİR<br>TEKNİK SERVİS</span>
+      <span class="splash-tag">Klima · Kombi · Beyaz Eşya</span>
+    </div>
+  </div>
+
   <!-- Üst bar -->
   <header class="topbar">
     <a class="brand" href="#top">
